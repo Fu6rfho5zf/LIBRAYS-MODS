@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etapa 1 - Key System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
@@ -27,11 +22,7 @@
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        h1 { color: #333; text-align: center; margin-bottom: 30px; }
         .step {
             background: #f0f0f0;
             padding: 15px;
@@ -53,13 +44,8 @@
             width: 100%;
             transition: transform 0.2s;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .info {
             background: #e3f2fd;
             padding: 15px;
@@ -75,27 +61,26 @@
             background: #fff3cd;
             border-radius: 5px;
         }
-        .loading.active {
-            display: block;
-        }
-        .warning {
-            background: #fff3cd;
-            color: #856404;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 0.9rem;
+        .loading.active { display: block; }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
             display: none;
         }
-        .warning.active {
-            display: block;
-        }
+        .success-message.active { display: block; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🔐 KEY SYSTEM</h1>
         <div class="step">ETAPA 1 DE 3</div>
+        
+        <div class="success-message" id="successMessage">
+            ✅ Você já completou a Etapa 1! Redirecionando...
+        </div>
         
         <div class="info">
             <strong>📺 LINKVERTISE #1</strong><br>
@@ -109,43 +94,88 @@
         <div class="loading" id="loading">
             ⏳ Aguardando confirmação do anúncio...
         </div>
-
-        <div class="warning" id="warning">
-            ⚠️ Você já completou esta etapa! Redirecionando...
-        </div>
     </div>
 
     <script>
-        // SEU LINK LINKVERTISE #1
         const LINK1 = 'https://link-hub.net/4207612/i6jlkffDKfIy';
 
-        // Verifica se já concluiu e redireciona
-        function verificarEta1() {
-            const etapa1 = localStorage.getItem('etapa1');
+        // Função para salvar status de forma segura
+        function salvarStatus(etapa, valor) {
+            try {
+                localStorage.setItem(etapa, valor);
+                // Força uma escrita imediata
+                localStorage.getItem(etapa);
+                console.log(`✅ Status salvo: ${etapa} = ${valor}`);
+                return true;
+            } catch (e) {
+                console.error('Erro ao salvar:', e);
+                return false;
+            }
+        }
+
+        // Função para ler status
+        function lerStatus(etapa) {
+            try {
+                const valor = localStorage.getItem(etapa);
+                console.log(`📖 Lendo ${etapa}:`, valor);
+                return valor;
+            } catch (e) {
+                console.error('Erro ao ler:', e);
+                return null;
+            }
+        }
+
+        function verificarStatus() {
+            console.log('🔍 Verificando status na Etapa 1...');
+            const etapa1 = lerStatus('etapa1');
+            const etapa2 = lerStatus('etapa2');
+            
+            console.log('📊 Status atual:', { etapa1, etapa2 });
+            
+            if (etapa1 === 'concluida' && etapa2 === 'concluida') {
+                console.log('✅ Todas etapas concluídas! Indo para gerar...');
+                window.location.href = 'gerar.html';
+                return true;
+            }
+            
             if (etapa1 === 'concluida') {
-                document.getElementById('warning').classList.add('active');
+                console.log('✅ Etapa 1 já concluída! Indo para etapa 2...');
+                document.getElementById('successMessage').classList.add('active');
+                document.getElementById('btn1').disabled = true;
                 setTimeout(() => {
                     window.location.href = 'etapa2.html';
                 }, 2000);
                 return true;
             }
+            
             return false;
         }
 
         function abrirLinkvertise1() {
-            if (verificarEta1()) return;
+            if (verificarStatus()) return;
 
             document.getElementById('btn1').disabled = true;
             document.getElementById('loading').classList.add('active');
             
             window.open(LINK1, '_blank');
             
-            // Aguarda 30 segundos
             setTimeout(() => {
                 if(confirm('Você completou o primeiro anúncio? Clique OK se sim.')) {
-                    localStorage.setItem('etapa1', 'concluida');
-                    localStorage.setItem('etapa1_timestamp', Date.now().toString());
-                    window.location.href = 'etapa2.html';
+                    if (salvarStatus('etapa1', 'concluida')) {
+                        salvarStatus('etapa1_timestamp', Date.now().toString());
+                        console.log('✅ Etapa 1 salva com sucesso!');
+                        
+                        document.getElementById('successMessage').classList.add('active');
+                        document.getElementById('successMessage').innerHTML = '✅ Etapa 1 concluída! Redirecionando...';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'etapa2.html';
+                        }, 2000);
+                    } else {
+                        alert('Erro ao salvar progresso. Tente novamente.');
+                        document.getElementById('btn1').disabled = false;
+                        document.getElementById('loading').classList.remove('active');
+                    }
                 } else {
                     document.getElementById('btn1').disabled = false;
                     document.getElementById('loading').classList.remove('active');
@@ -154,9 +184,9 @@
             }, 30000);
         }
 
-        // Executa verificação quando a página carrega
         window.onload = function() {
-            verificarEta1();
+            console.log('🚀 Página 1 carregada');
+            verificarStatus();
         };
     </script>
 </body>

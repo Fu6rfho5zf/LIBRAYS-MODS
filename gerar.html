@@ -194,7 +194,7 @@
     </div>
 
     <script>
-        // ================= CONFIGURAÇÕES JSONBIN.IO (SUAS CREDENCIAIS) =================
+        // ================= CONFIGURAÇÕES JSONBIN.IO =================
         const JSONBIN_CONFIG = {
             MASTER_KEY: '$2a$10$jMH5yqMerWA9aA59MyJnD.woraFMqdKh6ZZRp7Yx9ns2I5nqYxicC',
             BIN_ID: '69b2d6cc99b15f1d783632de',
@@ -210,15 +210,32 @@
 
         // ================= VERIFICA ETAPAS =================
         function verificarEtapas() {
+            console.log('🔍 Verificando etapas no gerador...');
+            
+            // Força leitura do localStorage
             const etapa1 = localStorage.getItem('etapa1');
             const etapa2 = localStorage.getItem('etapa2');
             
+            console.log('📌 etapa1:', etapa1);
+            console.log('📌 etapa2:', etapa2);
+            
             if (etapa1 !== 'concluida' || etapa2 !== 'concluida') {
+                console.log('❌ Etapas incompletas!');
                 document.getElementById('etapaError').classList.add('active');
                 document.getElementById('gerarBtn').disabled = true;
-                setTimeout(() => window.location.href = 'index.html', 3000);
+                
+                // Mostra qual etapa está faltando
+                if (etapa1 !== 'concluida') {
+                    document.getElementById('etapaError').innerHTML = '❌ Complete a Etapa 1 primeiro! Redirecionando...';
+                    setTimeout(() => window.location.href = 'index.html', 3000);
+                } else {
+                    document.getElementById('etapaError').innerHTML = '❌ Complete a Etapa 2 primeiro! Redirecionando...';
+                    setTimeout(() => window.location.href = 'etapa2.html', 3000);
+                }
                 return false;
             }
+            
+            console.log('✅ Todas etapas concluídas!');
             return true;
         }
 
@@ -277,7 +294,8 @@
                 }
                 
                 const data = await response.json();
-                mostrarDebug(`✅ Keys encontradas: ${Object.keys(data.record?.KEYS || {}).length} keys`);
+                const totalKeys = Object.keys(data.record?.KEYS || {}).length;
+                mostrarDebug(`✅ Keys encontradas: ${totalKeys} keys`);
                 return data.record || { KEYS: {} };
             } catch (error) {
                 console.error('Erro ao buscar keys:', error);
@@ -458,6 +476,11 @@
 
         // ================= INICIALIZAÇÃO =================
         window.onload = function() {
+            console.log('🚀 Página gerar.html carregada');
+            console.log('📦 localStorage atual:');
+            console.log('etapa1:', localStorage.getItem('etapa1'));
+            console.log('etapa2:', localStorage.getItem('etapa2'));
+            
             verificarEtapas();
             carregarKeyAnterior();
 

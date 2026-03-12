@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etapa 2 - Key System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             min-height: 100vh;
@@ -27,11 +22,7 @@
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        h1 { color: #333; text-align: center; margin-bottom: 30px; }
         .step {
             background: #f0f0f0;
             padding: 15px;
@@ -53,13 +44,8 @@
             width: 100%;
             transition: transform 0.2s;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .info {
             background: #e3f2fd;
             padding: 15px;
@@ -75,9 +61,7 @@
             background: #fff3cd;
             border-radius: 5px;
         }
-        .loading.active {
-            display: block;
-        }
+        .loading.active { display: block; }
         .error {
             background: #ffebee;
             color: #c62828;
@@ -86,21 +70,16 @@
             margin: 20px 0;
             display: none;
         }
-        .error.active {
-            display: block;
-        }
-        .warning {
-            background: #fff3cd;
-            color: #856404;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 0.9rem;
+        .error.active { display: block; }
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
             display: none;
         }
-        .warning.active {
-            display: block;
-        }
+        .success-message.active { display: block; }
     </style>
 </head>
 <body>
@@ -108,13 +87,17 @@
         <h1>🔐 KEY SYSTEM</h1>
         <div class="step">ETAPA 2 DE 3</div>
         
+        <div class="success-message" id="successMessage">
+            ✅ Você já completou a Etapa 2! Redirecionando...
+        </div>
+        
+        <div class="error" id="error">
+            ❌ Complete a etapa 1 primeiro! Redirecionando...
+        </div>
+        
         <div class="info">
             <strong>📺 LINKVERTISE #2</strong><br>
             Complete o segundo anúncio para gerar sua key
-        </div>
-
-        <div class="error" id="error">
-            ❌ Complete a etapa 1 primeiro!
         </div>
 
         <button class="btn" id="btn2" onclick="abrirLinkvertise2()">
@@ -124,43 +107,76 @@
         <div class="loading" id="loading">
             ⏳ Aguardando confirmação do anúncio...
         </div>
-
-        <div class="warning" id="warning">
-            ⚠️ Você já completou esta etapa! Redirecionando...
-        </div>
     </div>
 
     <script>
-        // SEU LINK LINKVERTISE #2
         const LINK2 = 'https://link-hub.net/4207612/irJlZ2eulEq0';
 
-        // Verifica etapa 1
-        function verificarEtapa1() {
-            const etapa1 = localStorage.getItem('etapa1');
-            if (etapa1 !== 'concluida') {
-                document.getElementById('error').classList.add('active');
-                document.getElementById('btn2').disabled = true;
-                setTimeout(() => window.location.href = 'index.html', 3000);
+        // Função para salvar status de forma segura
+        function salvarStatus(etapa, valor) {
+            try {
+                localStorage.setItem(etapa, valor);
+                localStorage.getItem(etapa);
+                console.log(`✅ Status salvo: ${etapa} = ${valor}`);
+                return true;
+            } catch (e) {
+                console.error('Erro ao salvar:', e);
                 return false;
             }
-            return true;
         }
 
-        // Verifica se já concluiu etapa 2
-        function verificarEtapa2() {
-            const etapa2 = localStorage.getItem('etapa2');
+        function lerStatus(etapa) {
+            try {
+                const valor = localStorage.getItem(etapa);
+                console.log(`📖 Lendo ${etapa}:`, valor);
+                return valor;
+            } catch (e) {
+                console.error('Erro ao ler:', e);
+                return null;
+            }
+        }
+
+        function verificarStatus() {
+            console.log('🔍 Verificando status na Etapa 2...');
+            const etapa1 = lerStatus('etapa1');
+            const etapa2 = lerStatus('etapa2');
+            
+            console.log('📊 Status atual:', { etapa1, etapa2 });
+            
+            // Se as duas estiverem concluídas, vai direto para gerar
+            if (etapa1 === 'concluida' && etapa2 === 'concluida') {
+                console.log('✅ Todas etapas concluídas! Indo para gerar...');
+                window.location.href = 'gerar.html';
+                return false;
+            }
+            
+            // Se etapa 1 não estiver concluída, volta para index
+            if (etapa1 !== 'concluida') {
+                console.log('❌ Etapa 1 não concluída! Voltando...');
+                document.getElementById('error').classList.add('active');
+                document.getElementById('btn2').disabled = true;
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                return false;
+            }
+            
+            // Se etapa 2 já estiver concluída, mostra mensagem
             if (etapa2 === 'concluida') {
-                document.getElementById('warning').classList.add('active');
+                console.log('✅ Etapa 2 já concluída! Indo para gerar...');
+                document.getElementById('successMessage').classList.add('active');
+                document.getElementById('btn2').disabled = true;
                 setTimeout(() => {
                     window.location.href = 'gerar.html';
                 }, 2000);
-                return true;
+                return false;
             }
-            return false;
+            
+            return true;
         }
 
         function abrirLinkvertise2() {
-            if (!verificarEtapa1() || verificarEtapa2()) return;
+            if (!verificarStatus()) return;
 
             document.getElementById('btn2').disabled = true;
             document.getElementById('loading').classList.add('active');
@@ -169,9 +185,21 @@
             
             setTimeout(() => {
                 if(confirm('Você completou o segundo anúncio? Clique OK se sim.')) {
-                    localStorage.setItem('etapa2', 'concluida');
-                    localStorage.setItem('etapa2_timestamp', Date.now().toString());
-                    window.location.href = 'gerar.html';
+                    if (salvarStatus('etapa2', 'concluida')) {
+                        salvarStatus('etapa2_timestamp', Date.now().toString());
+                        console.log('✅ Etapa 2 salva com sucesso!');
+                        
+                        document.getElementById('successMessage').classList.add('active');
+                        document.getElementById('successMessage').innerHTML = '✅ Etapa 2 concluída! Redirecionando...';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'gerar.html';
+                        }, 2000);
+                    } else {
+                        alert('Erro ao salvar progresso. Tente novamente.');
+                        document.getElementById('btn2').disabled = false;
+                        document.getElementById('loading').classList.remove('active');
+                    }
                 } else {
                     document.getElementById('btn2').disabled = false;
                     document.getElementById('loading').classList.remove('active');
@@ -181,8 +209,8 @@
         }
 
         window.onload = function() {
-            verificarEtapa1();
-            verificarEtapa2();
+            console.log('🚀 Página 2 carregada');
+            verificarStatus();
         };
     </script>
 </body>
