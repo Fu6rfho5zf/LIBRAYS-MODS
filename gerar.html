@@ -126,6 +126,17 @@
         .error-box.active {
             display: block;
         }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+        .warning.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -134,6 +145,10 @@
 
         <div class="error-box" id="etapaError">
             ❌ Complete as etapas 1 e 2 primeiro!
+        </div>
+
+        <div class="warning" id="keyWarning">
+            ⏳ Carregando sua key anterior...
         </div>
 
         <!-- Timer 23h -->
@@ -239,7 +254,6 @@
         }
 
         async function salvarKeys(dados) {
-            // Remove keys expiradas
             const agora = new Date();
             const keysAtualizadas = { KEYS: {} };
             
@@ -250,7 +264,6 @@
                 }
             }
 
-            // Prepara dados para API
             const formData = new FormData();
             formData.append('api_option', 'paste');
             formData.append('api_dev_key', PASTEBIN_API_KEY);
@@ -281,17 +294,14 @@
             gerarBtn.innerHTML = '⏳ GERANDO...';
 
             try {
-                // Busca keys atuais
                 const keys = await buscarKeys();
                 
-                // Gera nova key
                 const novaKey = 'FREE-' + Math.random().toString(36).substring(2, 15).toUpperCase() + 
                                '-' + Date.now().toString(36).toUpperCase();
                 
                 const expiracao = new Date();
                 expiracao.setHours(expiracao.getHours() + 23);
                 
-                // Adiciona nova key
                 keys.KEYS[novaKey] = {
                     Tipo: "FREE",
                     Tag: "USER",
@@ -304,15 +314,12 @@
                     Usuario: localStorage.getItem('user_id') || gerarUserId()
                 };
 
-                // Salva no Pastebin
                 await salvarKeys(keys);
                 
-                // Salva localmente
                 localStorage.setItem('ultima_key', novaKey);
                 localStorage.setItem('ultima_key_timestamp', Date.now().toString());
                 localStorage.setItem('ultima_key_expiracao', expiracao.toISOString());
                 
-                // Mostra key
                 document.getElementById('keyValue').innerText = novaKey;
                 document.getElementById('keyBox').classList.add('active');
                 
@@ -351,25 +358,28 @@
             }, 3000);
         }
 
-        // ================= INICIALIZAÇÃO =================
-        window.onload = function() {
-            verificarEtapas();
-
-            // Cria ID de usuário se não existir
-            if (!localStorage.getItem('user_id')) {
-                gerarUserId();
-            }
-
-            // Mostra key anterior se ainda válida
+        // ================= CARREGAR KEY ANTERIOR =================
+        function carregarKeyAnterior() {
             const keyAnterior = localStorage.getItem('ultima_key');
             const expiracao = localStorage.getItem('ultima_key_expiracao');
             
             if (keyAnterior && expiracao && new Date(expiracao) > new Date()) {
+                document.getElementById('keyWarning').classList.add('active');
+                document.getElementById('keyWarning').innerHTML = '✅ Key anterior ainda válida!';
                 document.getElementById('keyValue').innerText = keyAnterior;
                 document.getElementById('keyBox').classList.add('active');
             }
+        }
 
-            // Inicia timer
+        // ================= INICIALIZAÇÃO =================
+        window.onload = function() {
+            verificarEtapas();
+            carregarKeyAnterior();
+
+            if (!localStorage.getItem('user_id')) {
+                gerarUserId();
+            }
+
             atualizarTimer();
             setInterval(atualizarTimer, 1000);
         };

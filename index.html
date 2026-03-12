@@ -78,6 +78,18 @@
         .loading.active {
             display: block;
         }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .warning.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -97,23 +109,42 @@
         <div class="loading" id="loading">
             ⏳ Aguardando confirmação do anúncio...
         </div>
+
+        <div class="warning" id="warning">
+            ⚠️ Você já completou esta etapa! Redirecionando...
+        </div>
     </div>
 
     <script>
-        // ===== COLOQUE AQUI SEU PRIMEIRO LINK DO LINKVERTISE =====
-        const LINK1 = 'https://link-hub.net/4207612/i6jlkffDKfIy'; // SUBSTITUA AQUI
+        // SEU LINK LINKVERTISE #1
+        const LINK1 = 'https://link-hub.net/4207612/i6jlkffDKfIy';
+
+        // Verifica se já concluiu e redireciona
+        function verificarEta1() {
+            const etapa1 = localStorage.getItem('etapa1');
+            if (etapa1 === 'concluida') {
+                document.getElementById('warning').classList.add('active');
+                setTimeout(() => {
+                    window.location.href = 'etapa2.html';
+                }, 2000);
+                return true;
+            }
+            return false;
+        }
 
         function abrirLinkvertise1() {
+            if (verificarEta1()) return;
+
             document.getElementById('btn1').disabled = true;
             document.getElementById('loading').classList.add('active');
             
             window.open(LINK1, '_blank');
             
-            // Aguarda 30 segundos (tempo mínimo para ver anúncio)
+            // Aguarda 30 segundos
             setTimeout(() => {
                 if(confirm('Você completou o primeiro anúncio? Clique OK se sim.')) {
                     localStorage.setItem('etapa1', 'concluida');
-                    // Redireciona para etapa 2
+                    localStorage.setItem('etapa1_timestamp', Date.now().toString());
                     window.location.href = 'etapa2.html';
                 } else {
                     document.getElementById('btn1').disabled = false;
@@ -123,10 +154,10 @@
             }, 30000);
         }
 
-        // Se já concluiu etapa 1, vai direto para etapa 2
-        if(localStorage.getItem('etapa1') === 'concluida') {
-            window.location.href = 'etapa2.html';
-        }
+        // Executa verificação quando a página carrega
+        window.onload = function() {
+            verificarEta1();
+        };
     </script>
 </body>
 </html>
