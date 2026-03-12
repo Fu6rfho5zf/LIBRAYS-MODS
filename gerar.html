@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Key - Sistema 23h</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .timer-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .timer {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .key-box {
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px dashed #00ff88;
+            display: none;
+        }
+        .key-box.active {
+            display: block;
+        }
+        .key-value {
+            font-size: 1.3rem;
+            color: #00ff88;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 15px 0;
+            padding: 10px;
+            background: #000;
+            border-radius: 5px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        .error-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+        .error-box.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 GERAR KEY FREE</h1>
+
+        <div class="error-box" id="etapaError">
+            ❌ Complete as etapas 1 e 2 primeiro!
+        </div>
+
+        <!-- Timer 23h -->
+        <div class="timer-box">
+            <div id="statusTexto">⏳ Próxima key disponível em:</div>
+            <div class="timer" id="timer">23:00:00</div>
+            <small>Keys expiram após 23h</small>
+        </div>
+
+        <!-- Área da Key -->
+        <div class="key-box" id="keyBox">
+            <strong style="color: #00ff88;">SUA KEY:</strong>
+            <div class="key-value" id="keyValue"></div>
+            <button class="btn btn-secondary" onclick="copiarKey()">📋 COPIAR KEY</button>
+        </div>
+
+        <!-- Botão Gerar -->
+        <button class="btn" id="gerarBtn" onclick="gerarKey()">
+            🎯 GERAR NOVA KEY
+        </button>
+
+        <!-- Informações -->
+        <div class="info">
+            <strong>📌 REGRAS:</strong><br>
+            • 1 key a cada 23h por usuário<br>
+            • Key FREE válida por 23h<br>
+            • Complete os 2 anúncios para gerar<br>
+            • Keys são salvas no Pastebin
+        </div>
+
+        <div id="mensagem" class="status"></div>
+    </div>
+
+    <script>
+        // ================= CONFIGURAÇÕES PASTEBIN =================
+        const PASTEBIN_API_KEY = 'ICCxMdZ1lGFggK2kqnqhb8RTSDQdo201';
+        const PASTEBIN_RAW_URL = 'https://pastebin.com/raw/rApXHus3';
+        const PASTEBIN_API_URL = 'https://pastebin.com/api/api_post.php';
+
+        // ================= VERIFICA ETAPAS =================
+        function verificarEtapas() {
+            const etapa1 = localStorage.getItem('etapa1');
+            const etapa2 = localStorage.getItem('etapa2');
+            
+            if (etapa1 !== 'concluida' || etapa2 !== 'concluida') {
+                document.getElementById('etapaError').classList.add('active');
+                document.getElementById('gerarBtn').disabled = true;
+                setTimeout(() => window.location.href = 'index.html', 3000);
+                return false;
+            }
+            return true;
+        }
+
+        // ================= CONTROLE DE TEMPO =================
+        function getTempoRestante() {
+            const ultimaKey = localStorage.getItem('ultima_key_timestamp');
+            if (!ultimaKey) return 0;
+            
+            const agora = Date.now();
+            const diferenca = agora - parseInt(ultimaKey);
+            const tempoRestante = (23 * 60 * 60 * 1000) - diferenca;
+            
+            return tempoRestante > 0 ? tempoRestante : 0;
+        }
+
+        function podeGerar() {
+            return getTempoRestante() <= 0;
+        }
+
+        function atualizarTimer() {
+            const timerEl = document.getElementById('timer');
+            const statusTexto = document.getElementById('statusTexto');
+            const gerarBtn = document.getElementById('gerarBtn');
+            
+            if (podeGerar()) {
+                timerEl.innerHTML = '✅ DISPONÍVEL!';
+                statusTexto.innerHTML = '✨ Você pode gerar uma nova key:';
+                if (verificarEtapas()) {
+                    gerarBtn.disabled = false;
+                }
+            } else {
+                const tempo = getTempoRestante();
+                const horas = Math.floor(tempo / (1000 * 60 * 60));
+                const minutos = Math.floor((tempo % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((tempo % (1000 * 60)) / 1000);
+                
+                timerEl.innerHTML = `${horas.toString().padStart(2,'0')}:${minutos.toString().padStart(2,'0')}:${segundos.toString().padStart(2,'0')}`;
+                statusTexto.innerHTML = '⏳ Próxima key disponível em:';
+                gerarBtn.disabled = true;
+            }
+        }
+
+        // ================= PASTEBIN =================
+        async function buscarKeys() {
+            try {
+                const response = await fetch(PASTEBIN_RAW_URL);
+                if (!response.ok) throw new Error('Erro ao buscar keys');
+                return await response.json();
+            } catch (error) {
+                console.error('Erro:', error);
+                return { KEYS: {} };
+            }
+        }
+
+        async function salvarKeys(dados) {
+            // Remove keys expiradas
+            const agora = new Date();
+            const keysAtualizadas = { KEYS: {} };
+            
+            for (const [key, value] of Object.entries(dados.KEYS)) {
+                const expira = new Date(value.Expira);
+                if (expira > agora) {
+                    keysAtualizadas.KEYS[key] = value;
+                }
+            }
+
+            // Prepara dados para API
+            const formData = new FormData();
+            formData.append('api_option', 'paste');
+            formData.append('api_dev_key', PASTEBIN_API_KEY);
+            formData.append('api_paste_code', JSON.stringify(keysAtualizadas, null, 2));
+            formData.append('api_paste_name', 'keys_database');
+            formData.append('api_paste_expire_date', '1M');
+            formData.append('api_paste_private', '1');
+
+            const response = await fetch(PASTEBIN_API_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            return await response.text();
+        }
+
+        // ================= GERAR KEY =================
+        async function gerarKey() {
+            if (!podeGerar()) {
+                mostrarMensagem('Aguarde 23h para gerar outra key!', 'error');
+                return;
+            }
+
+            if (!verificarEtapas()) return;
+
+            const gerarBtn = document.getElementById('gerarBtn');
+            gerarBtn.disabled = true;
+            gerarBtn.innerHTML = '⏳ GERANDO...';
+
+            try {
+                // Busca keys atuais
+                const keys = await buscarKeys();
+                
+                // Gera nova key
+                const novaKey = 'FREE-' + Math.random().toString(36).substring(2, 15).toUpperCase() + 
+                               '-' + Date.now().toString(36).toUpperCase();
+                
+                const expiracao = new Date();
+                expiracao.setHours(expiracao.getHours() + 23);
+                
+                // Adiciona nova key
+                keys.KEYS[novaKey] = {
+                    Tipo: "FREE",
+                    Tag: "USER",
+                    Expira: expiracao.toISOString(),
+                    Horario: new Date().toLocaleTimeString(),
+                    Status: "ativo",
+                    Descricao: "Key FREE válida por 23h",
+                    Prioridade: 1,
+                    Criado_em: new Date().toISOString().split('T')[0],
+                    Usuario: localStorage.getItem('user_id') || gerarUserId()
+                };
+
+                // Salva no Pastebin
+                await salvarKeys(keys);
+                
+                // Salva localmente
+                localStorage.setItem('ultima_key', novaKey);
+                localStorage.setItem('ultima_key_timestamp', Date.now().toString());
+                localStorage.setItem('ultima_key_expiracao', expiracao.toISOString());
+                
+                // Mostra key
+                document.getElementById('keyValue').innerText = novaKey;
+                document.getElementById('keyBox').classList.add('active');
+                
+                mostrarMensagem('✅ Key gerada com sucesso!', 'success');
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                mostrarMensagem('Erro ao gerar key. Tente novamente.', 'error');
+            }
+
+            gerarBtn.innerHTML = '🎯 GERAR NOVA KEY';
+            atualizarTimer();
+        }
+
+        // ================= UTILITÁRIOS =================
+        function gerarUserId() {
+            const id = 'user_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
+            localStorage.setItem('user_id', id);
+            return id;
+        }
+
+        function copiarKey() {
+            const key = document.getElementById('keyValue').innerText;
+            navigator.clipboard.writeText(key).then(() => {
+                mostrarMensagem('📋 Key copiada!', 'success');
+            });
+        }
+
+        function mostrarMensagem(texto, tipo) {
+            const msg = document.getElementById('mensagem');
+            msg.innerText = texto;
+            msg.className = `status ${tipo}`;
+            
+            setTimeout(() => {
+                msg.className = 'status';
+            }, 3000);
+        }
+
+        // ================= INICIALIZAÇÃO =================
+        window.onload = function() {
+            verificarEtapas();
+
+            // Cria ID de usuário se não existir
+            if (!localStorage.getItem('user_id')) {
+                gerarUserId();
+            }
+
+            // Mostra key anterior se ainda válida
+            const keyAnterior = localStorage.getItem('ultima_key');
+            const expiracao = localStorage.getItem('ultima_key_expiracao');
+            
+            if (keyAnterior && expiracao && new Date(expiracao) > new Date()) {
+                document.getElementById('keyValue').innerText = keyAnterior;
+                document.getElementById('keyBox').classList.add('active');
+            }
+
+            // Inicia timer
+            atualizarTimer();
+            setInterval(atualizarTimer, 1000);
+        };
+    </script>
+</body>
+</html>

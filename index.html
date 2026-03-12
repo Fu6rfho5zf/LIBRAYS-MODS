@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etapa 1 - Key System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 5px;
+        }
+        .loading.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 KEY SYSTEM</h1>
+        <div class="step">ETAPA 1 DE 3</div>
+        
+        <div class="info">
+            <strong>📺 LINKVERTISE #1</strong><br>
+            Complete o primeiro anúncio para continuar
+        </div>
+
+        <button class="btn" id="btn1" onclick="abrirLinkvertise1()">
+            ABRIR LINKVERTISE 1
+        </button>
+
+        <div class="loading" id="loading">
+            ⏳ Aguardando confirmação do anúncio...
+        </div>
+    </div>
+
+    <script>
+        // ===== COLOQUE AQUI SEU PRIMEIRO LINK DO LINKVERTISE =====
+        const LINK1 = 'https://link-target.net/SEU-LINK-1'; // SUBSTITUA AQUI
+
+        function abrirLinkvertise1() {
+            document.getElementById('btn1').disabled = true;
+            document.getElementById('loading').classList.add('active');
+            
+            window.open(LINK1, '_blank');
+            
+            // Aguarda 30 segundos (tempo mínimo para ver anúncio)
+            setTimeout(() => {
+                if(confirm('Você completou o primeiro anúncio? Clique OK se sim.')) {
+                    localStorage.setItem('etapa1', 'concluida');
+                    // Redireciona para etapa 2
+                    window.location.href = 'etapa2.html';
+                } else {
+                    document.getElementById('btn1').disabled = false;
+                    document.getElementById('loading').classList.remove('active');
+                    alert('Você precisa completar o anúncio para continuar!');
+                }
+            }, 30000);
+        }
+
+        // Se já concluiu etapa 1, vai direto para etapa 2
+        if(localStorage.getItem('etapa1') === 'concluida') {
+            window.location.href = 'etapa2.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etapa 2 - Key System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #f5576c;
+        }
+        .btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 5px;
+        }
+        .loading.active {
+            display: block;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            display: none;
+        }
+        .error.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 KEY SYSTEM</h1>
+        <div class="step">ETAPA 2 DE 3</div>
+        
+        <div class="info">
+            <strong>📺 LINKVERTISE #2</strong><br>
+            Complete o segundo anúncio para gerar sua key
+        </div>
+
+        <div class="error" id="error">
+            ❌ Complete a etapa 1 primeiro!
+        </div>
+
+        <button class="btn" id="btn2" onclick="abrirLinkvertise2()">
+            ABRIR LINKVERTISE 2
+        </button>
+
+        <div class="loading" id="loading">
+            ⏳ Aguardando confirmação do anúncio...
+        </div>
+    </div>
+
+    <script>
+        // ===== COLOQUE AQUI SEU SEGUNDO LINK DO LINKVERTISE =====
+        const LINK2 = 'https://link-target.net/SEU-LINK-2'; // SUBSTITUA AQUI
+
+        // Verifica se já completou etapa 1
+        if(localStorage.getItem('etapa1') !== 'concluida') {
+            document.getElementById('error').classList.add('active');
+            document.getElementById('btn2').disabled = true;
+            setTimeout(() => window.location.href = 'index.html', 3000);
+        }
+
+        function abrirLinkvertise2() {
+            document.getElementById('btn2').disabled = true;
+            document.getElementById('loading').classList.add('active');
+            
+            window.open(LINK2, '_blank');
+            
+            setTimeout(() => {
+                if(confirm('Você completou o segundo anúncio? Clique OK se sim.')) {
+                    localStorage.setItem('etapa2', 'concluida');
+                    window.location.href = 'gerar.html';
+                } else {
+                    document.getElementById('btn2').disabled = false;
+                    document.getElementById('loading').classList.remove('active');
+                    alert('Você precisa completar o anúncio para continuar!');
+                }
+            }, 30000);
+        }
+    </script>
+</body>
+</html>
