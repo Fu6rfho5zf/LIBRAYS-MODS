@@ -58,20 +58,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Jogos"
-  },
-  {
-    "id": 1774567453365,
-    "name": "Genshin Impact",
-    "logo": "https://play-lh.googleusercontent.com/1mVoKmC5pU7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q",
-    "desc": "Explore o mundo de Teyvat em Genshin Impact, um RPG de ação em mundo aberto. Descubra segredos, derrote inimigos e colete personagens únicos.",
-    "version": "4.5.0",
-    "size": "15 GB",
-    "dev": "HoYoverse",
-    "link": "https://genshin.hoyoverse.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Jogos"
   }
 ]
