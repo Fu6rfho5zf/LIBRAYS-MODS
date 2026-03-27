@@ -10,8 +10,8 @@
     "link": "https://ff.garena.com/download",
     "linkArm64": "",
     "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
+    "hasArm64": true,
+    "hasArm32": true,
     "category": "Jogos"
   },
   {
