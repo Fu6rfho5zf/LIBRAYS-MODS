@@ -1,17 +1,1 @@
-[
-  {
-    "id": 1774567453371,
-    "name": "WhatsApp",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png",
-    "desc": "Mensagens, chamadas e vídeo chamadas gratuitas e seguras com criptografia de ponta a ponta. Compartilhe fotos, vídeos, documentos e localização.",
-    "version": "2.23.25",
-    "size": "48 MB",
-    "dev": "Meta",
-    "link": "https://www.whatsapp.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Social"
-  }
-]
+[]
