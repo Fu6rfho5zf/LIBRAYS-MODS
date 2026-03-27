@@ -73,20 +73,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Jogos"
-  },
-  {
-    "id": 1774567453366,
-    "name": "Among Us",
-    "logo": "https://play-lh.googleusercontent.com/1mVoKmC5pU7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q",
-    "desc": "Jogo de dedução social multiplayer para 4-15 jogadores. Descubra o impostor ou engane a tripulação!",
-    "version": "2024.10.29",
-    "size": "250 MB",
-    "dev": "Innersloth LLC",
-    "link": "https://www.innersloth.com/games/among-us",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Jogos"
   }
 ]
