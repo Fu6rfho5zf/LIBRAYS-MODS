@@ -13,20 +13,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Social"
-  },
-  {
-    "id": 1774567453372,
-    "name": "Twitter",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/512px-Logo_of_Twitter.svg.png",
-    "desc": "Acompanhe o que está acontecendo no mundo. Veja notícias, entretenimento, esportes e política. Conecte-se com pessoas e assuntos que você ama.",
-    "version": "10.0.0",
-    "size": "55 MB",
-    "dev": "X Corp.",
-    "link": "https://twitter.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Social"
   }
 ]
