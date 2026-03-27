@@ -43,20 +43,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Jogos"
-  },
-  {
-    "id": 1774567453364,
-    "name": "Mobile Legends: Bang Bang",
-    "logo": "https://play-lh.googleusercontent.com/1mVoKmC5pU7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q",
-    "desc": "Mobile Legends: Bang Bang é um MOBA 5v5 clássico. Escolha entre dezenas de heróis e lute em partidas emocionantes de 10 minutos.",
-    "version": "1.8.95",
-    "size": "1.2 GB",
-    "dev": "Moonton",
-    "link": "https://mobilelegends.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Jogos"
   }
 ]
