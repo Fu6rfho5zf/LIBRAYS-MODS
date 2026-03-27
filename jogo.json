@@ -28,20 +28,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
-  },
-  {
-    "id": 1774567453363,
-    "name": "Call of Duty: Mobile",
-    "logo": "https://play-lh.googleusercontent.com/9y7xT8w0CkYvM8Zq8t5R5q8q8q8q8q8q8q8q8q",
-    "desc": "Call of Duty: Mobile traz a experiência clássica de FPS para dispositivos móveis. Jogue modos multiplayer clássicos e battle royale com gráficos impressionantes e controles otimizados.",
-    "version": "1.0.48",
-    "size": "2.5 GB",
-    "dev": "Activision Publishing, Inc.",
-    "link": "https://www.callofduty.com/mobile/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Jogos"
   }
 ]
