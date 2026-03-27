@@ -28,5 +28,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
+  },
+  {
+    "id": 1774655548040,
+    "name": "YouTube",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b7/68/4e/b7684ee2-68b5-0b77-b13d-38c858064514/logo_youtube_2024_q4_color-0-1x_U007emarketing-0-0-0-7-0-0-0-85-220-0.png/512x512bb.jpg",
+    "desc": "Get the official YouTube app on iPhones and iPads. See what the world is watching -- from the hottest music videos to what’s popular in gaming, fashion, beauty, news, learning and more. Subscribe to c",
+    "version": "21.12.4",
+    "size": "330.2 MB",
+    "dev": "Google",
+    "link": "",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
