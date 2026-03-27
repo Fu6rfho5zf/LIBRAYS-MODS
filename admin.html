@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Librays Mods | Painel Admin Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #0a0a0f;
+            --card: #111118;
+            --border: #1f1f2e;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --input: #0c0c14;
+        }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+        .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); }
+        .login-card { background: var(--card); border-radius: 32px; padding: 48px; width: 100%; max-width: 420px; border: 1px solid var(--border); }
+        .login-card h1 { font-size: 1.8rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--primary), #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .login-card p { color: var(--text-secondary); margin-bottom: 32px; }
+        .login-input { margin-bottom: 20px; }
+        .login-input label { display: block; margin-bottom: 8px; color: var(--text-secondary); }
+        .login-input input { width: 100%; padding: 14px 18px; background: var(--input); border: 1px solid var(--border); border-radius: 16px; color: var(--text); font-size: 1rem; }
+        .login-btn { width: 100%; padding: 14px; background: var(--primary); border: none; border-radius: 16px; color: white; font-weight: 600; font-size: 1rem; cursor: pointer; }
+        .login-btn:hover { background: var(--primary-dark); }
+        .error-message { color: var(--danger); margin-top: 16px; text-align: center; font-size: 0.85rem; }
+        .main-app { display: none; }
+        .container { max-width: 1600px; margin: 0 auto; padding: 24px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+        .logo h1 { font-size: 1.8rem; background: linear-gradient(135deg, var(--primary), #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .user-info { display: flex; align-items: center; gap: 16px; background: var(--card); padding: 8px 20px; border-radius: 100px; border: 1px solid var(--border); }
+        .user-info img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .logout-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 12px; cursor: pointer; }
+        .logout-btn:hover { border-color: var(--danger); color: var(--danger); }
+        .tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+        .tab-btn { padding: 10px 24px; border-radius: 12px; border: none; cursor: pointer; background: transparent; color: var(--text-secondary); font-weight: 600; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+        .tab-btn:hover { background: var(--card); color: var(--text); }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .card { background: var(--card); border-radius: 20px; padding: 24px; border: 1px solid var(--border); margin-bottom: 24px; }
+        .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--primary); }
+        .grid-2cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 1000px) { .grid-2cols { grid-template-columns: 1fr; } }
+        input, select, textarea { width: 100%; padding: 12px 16px; background: var(--input); border: 1px solid var(--border); border-radius: 12px; color: var(--text); margin-bottom: 14px; }
+        .btn { padding: 12px 20px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .app-list { max-height: 500px; overflow-y: auto; }
+        .app-item { background: var(--input); padding: 16px; border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; }
+        .app-item:hover { background: var(--card-hover); transform: translateX(4px); }
+        .badge { background: var(--primary-dark); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; }
+        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--card); border-left: 4px solid var(--success); padding: 14px 20px; border-radius: 12px; z-index: 1000; animation: slideIn 0.3s ease; }
+        .toast.error { border-left-color: var(--danger); }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .hidden { display: none; }
+        .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .repo-selector { background: var(--card); padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+        .search-results-horizontal { display: flex; gap: 12px; overflow-x: auto; padding: 12px 0; margin-bottom: 20px; scrollbar-width: thin; }
+        .search-results-horizontal::-webkit-scrollbar { height: 4px; }
+        .result-card-horizontal { flex-shrink: 0; width: 180px; background: var(--input); border-radius: 16px; padding: 12px; cursor: pointer; transition: all 0.2s; text-align: center; border: 1px solid var(--border); }
+        .result-card-horizontal:hover { background: var(--card-hover); transform: translateY(-4px); border-color: var(--primary); }
+        .result-card-horizontal img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; margin-bottom: 8px; }
+        .result-card-horizontal h4 { font-size: 0.8rem; margin-bottom: 4px; }
+        .result-card-horizontal p { font-size: 0.6rem; color: var(--text-secondary); }
+        .api-source-selector { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+        .api-source-btn { padding: 8px 16px; border-radius: 20px; background: var(--input); border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; }
+        .api-source-btn.active { background: var(--primary); color: white; }
+        .search-input-group { display: flex; gap: 12px; margin-bottom: 20px; }
+        .search-input { flex: 1; padding: 12px 16px; background: var(--input); border: 1px solid var(--border); border-radius: 12px; color: var(--text); }
+        .json-pre { background: #010101; padding: 14px; border-radius: 12px; font-family: monospace; font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <h1><i class="fas fa-crown"></i> Librays Mods</h1>
+            <p>Painel Administrativo</p>
+            <div class="login-input">
+                <label><i class="fas fa-user"></i> Usuario</label>
+                <input type="text" id="loginUser" placeholder="Digite seu usuario">
+            </div>
+            <div class="login-input">
+                <label><i class="fas fa-lock"></i> Senha</label>
+                <input type="password" id="loginPass" placeholder="Digite sua senha" onkeypress="if(event.key==='Enter') doLogin()">
+            </div>
+            <div class="login-input">
+                <label><i class="fab fa-github"></i> GitHub Token</label>
+                <input type="password" id="loginToken" placeholder="ghp_xxxxxxxxxxxx">
+            </div>
+            <button class="login-btn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+            <div id="loginError" class="error-message"></div>
+        </div>
+    </div>
+
+    <div id="mainApp" class="main-app">
+        <div class="container">
+            <div class="header">
+                <div class="logo">
+                    <h1><i class="fas fa-crown"></i> Librays Mods Admin Pro</h1>
+                </div>
+                <div class="user-info" id="userInfo">
+                    <img id="userAvatar" src="https://via.placeholder.com/40">
+                    <span id="userName">Carregando...</span>
+                    <button class="logout-btn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </div>
+
+            <div class="repo-selector">
+                <i class="fas fa-code-branch"></i>
+                <select id="repoSelect" onchange="switchRepository()">
+                    <option value="Fu6rfho5zf/LIBRAYS-MODS">LIBRAYS-MODS (Principal)</option>
+                </select>
+                <button class="btn btn-outline" onclick="addNewRepository()" style="padding: 8px 16px;"><i class="fas fa-plus"></i> Adicionar Repo</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab(event, 'dragdrop')"><i class="fas fa-arrows-alt"></i> Ordenar Apps</button>
+                <button class="tab-btn" onclick="showTab(event, 'bulk')"><i class="fas fa-layer-group"></i> Edicao em Massa</button>
+                <button class="tab-btn" onclick="showTab(event, 'import')"><i class="fas fa-file-import"></i> Importar Lote</button>
+                <button class="tab-btn" onclick="showTab(event, 'linkcheck')"><i class="fas fa-link"></i> Validar Links</button>
+                <button class="tab-btn" onclick="showTab(event, 'visualEditor')"><i class="fas fa-edit"></i> Editor Visual</button>
+                <button class="tab-btn" onclick="showTab(event, 'api')"><i class="fas fa-plug"></i> Buscar Apps</button>
+                <button class="tab-btn" onclick="showTab(event, 'add')"><i class="fas fa-plus-circle"></i> Adicionar App</button>
+            </div>
+
+            <div id="view-dragdrop" class="card">
+                <div class="card-title"><i class="fas fa-arrows-alt"></i> Arraste e Solte para Reordenar Apps</div>
+                <select id="dragdrop_file" style="width: 250px; margin-bottom: 20px;">
+                    <option value="destaque.json">destaque.json</option>
+                    <option value="entretenimento.json">entretenimento.json</option>
+                    <option value="jogo.json">jogo.json</option>
+                    <option value="musica.json">musica.json</option>
+                    <option value="social.json">social.json</option>
+                </select>
+                <button class="btn btn-primary" onclick="loadDragDropApps()"><i class="fas fa-sync"></i> Carregar Apps</button>
+                <button class="btn btn-success" onclick="saveDragDropOrder()"><i class="fas fa-save"></i> Salvar Ordem</button>
+                <div id="dragdropList" class="app-list" style="margin-top: 20px;"></div>
+            </div>
+
+            <div id="view-bulk" class="hidden card">
+                <div class="card-title"><i class="fas fa-layer-group"></i> Edicao em Massa</div>
+                <select id="bulk_file" style="width: 250px;">
+                    <option value="destaque.json">destaque.json</option>
+                    <option value="entretenimento.json">entretenimento.json</option>
+                    <option value="jogo.json">jogo.json</option>
+                    <option value="musica.json">musica.json</option>
+                    <option value="social.json">social.json</option>
+                </select>
+                <button class="btn btn-primary" onclick="loadBulkApps()"><i class="fas fa-sync"></i> Carregar</button>
+                <div id="bulkAppsContainer" style="margin-top: 20px;"></div>
+                <button class="btn btn-success" onclick="saveBulkChanges()" style="margin-top: 20px;"><i class="fas fa-save"></i> Salvar Alteracoes</button>
+            </div>
+
+            <div id="view-import" class="hidden card">
+                <div class="card-title"><i class="fas fa-file-import"></i> Importacao em Lote</div>
+                <select id="import_file" style="width: 250px;">
+                    <option value="destaque.json">destaque.json</option>
+                    <option value="entretenimento.json">entretenimento.json</option>
+                    <option value="jogo.json">jogo.json</option>
+                    <option value="musica.json">musica.json</option>
+                    <option value="social.json">social.json</option>
+                </select>
+                <div class="grid-2cols">
+                    <div>
+                        <label>Importar CSV/JSON</label>
+                        <input type="file" id="importFile" accept=".json,.csv">
+                        <button class="btn btn-primary" onclick="importFromFile()"><i class="fas fa-upload"></i> Importar</button>
+                    </div>
+                    <div>
+                        <label>Ou colar JSON aqui</label>
+                        <textarea id="importJSON" rows="5" placeholder='[{"name":"App1","link":"https://..."}]'></textarea>
+                        <button class="btn btn-primary" onclick="importFromText()"><i class="fas fa-code"></i> Importar JSON</button>
+                    </div>
+                </div>
+                <div id="importPreview" class="app-list" style="margin-top: 20px;"></div>
+            </div>
+
+            <div id="view-linkcheck" class="hidden card">
+                <div class="card-title"><i class="fas fa-link"></i> Validacao de Links</div>
+                <select id="linkcheck_file" style="width: 250px;">
+                    <option value="destaque.json">destaque.json</option>
+                    <option value="entretenimento.json">entretenimento.json</option>
+                    <option value="jogo.json">jogo.json</option>
+                    <option value="musica.json">musica.json</option>
+                    <option value="social.json">social.json</option>
+                </select>
+                <button class="btn btn-primary" onclick="validateLinks()"><i class="fas fa-check-double"></i> Validar Links</button>
+                <div id="linkResults" class="app-list" style="margin-top: 20px;"></div>
+            </div>
+
+            <div id="view-api" class="hidden card">
+                <div class="card-title"><i class="fas fa-plug"></i> Buscar Apps em APIs Gratuitas</div>
+                <div class="api-source-selector">
+                    <button class="api-source-btn active" data-api="all" onclick="setApiSource('all')">Todas</button>
+                    <button class="api-source-btn" data-api="appstore" onclick="setApiSource('appstore')">App Store</button>
+                    <button class="api-source-btn" data-api="steam" onclick="setApiSource('steam')">Steam</button>
+                    <button class="api-source-btn" data-api="github" onclick="setApiSource('github')">GitHub</button>
+                </div>
+                <div class="search-input-group">
+                    <input type="text" id="apiSearchInput" class="search-input" placeholder="Digite o nome do app..." onkeypress="if(event.key==='Enter') searchAllApis()">
+                    <button class="btn btn-primary" onclick="searchAllApis()"><i class="fas fa-search"></i> Buscar</button>
+                </div>
+                <div id="apiResultsHorizontal" class="search-results-horizontal">
+                    <div style="text-align: center; width: 100%; padding: 40px; color: var(--text-secondary);">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                        Digite o nome de um app e clique em Buscar
+                    </div>
+                </div>
+                <div style="margin-top: 16px; padding: 12px; background: var(--input); border-radius: 12px; font-size: 0.7rem; color: var(--text-secondary);">
+                    <i class="fas fa-info-circle"></i> Clique em qualquer resultado para importar os dados.
+                </div>
+            </div>
+
+            <div id="view-visualEditor" class="hidden card">
+                <div class="card-title"><i class="fas fa-edit"></i> Editor Visual</div>
+                <select id="visual_file" style="width: 250px;">
+                    <option value="destaque.json">destaque.json</option>
+                    <option value="entretenimento.json">entretenimento.json</option>
+                    <option value="jogo.json">jogo.json</option>
+                    <option value="musica.json">musica.json</option>
+                    <option value="social.json">social.json</option>
+                </select>
+                <button class="btn btn-primary" onclick="loadVisualEditor()"><i class="fas fa-folder-open"></i> Carregar</button>
+                <button class="btn btn-success" onclick="saveVisualEditor()"><i class="fas fa-save"></i> Salvar</button>
+                <div id="visualEditorContainer" class="app-list" style="margin-top: 20px;"></div>
+            </div>
+
+            <div id="view-add" class="hidden grid-2cols">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-mobile-alt"></i> Novo Aplicativo</div>
+                    <input type="text" id="f_name" placeholder="Nome do Aplicativo">
+                    <div id="addSearchResults" class="search-results-horizontal" style="margin: 10px 0; display: none;"></div>
+                    <input type="text" id="f_logo" placeholder="Logo URL">
+                    <textarea id="f_desc" rows="2" placeholder="Descricao"></textarea>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+                        <input type="text" id="f_ver" placeholder="Versao">
+                        <input type="text" id="f_size" placeholder="Tamanho">
+                    </div>
+                    <input type="text" id="f_dev" placeholder="Desenvolvedor">
+                    <input type="text" id="f_link" placeholder="Link Download">
+                    <select id="f_category">
+                        <option value="destaque">Destaque</option>
+                        <option value="entretenimento">Entretenimento</option>
+                        <option value="jogo">Jogos</option>
+                        <option value="musica">Musica</option>
+                        <option value="social">Social</option>
+                    </select>
+                    <button class="btn btn-outline" onclick="searchFromAddPage()" style="margin-top: 10px;"><i class="fas fa-search"></i> Buscar Apps para Importar</button>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-sliders-h"></i> Configuracao</div>
+                    <label>Arquivo Destino</label>
+                    <select id="gh_path">
+                        <option value="destaque.json">destaque.json</option>
+                        <option value="entretenimento.json">entretenimento.json</option>
+                        <option value="jogo.json">jogo.json</option>
+                        <option value="musica.json">musica.json</option>
+                        <option value="social.json">social.json</option>
+                    </select>
+                    <div class="json-pre" id="previewJSON"></div>
+                    <button class="btn btn-success" onclick="saveNewApp()" style="width:100%; margin-top:16px;"><i class="fas fa-save"></i> Salvar App</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let GITHUB_REPO = "Fu6rfho5zf/LIBRAYS-MODS";
+        let GITHUB_TOKEN = "";
+        let ADMIN_USER = null;
+        let currentDragApps = [];
+        let currentBulkApps = [];
+        let currentVisualApps = [];
+        let currentFileSha = null;
+        let currentApiSource = "all";
+        let lastSearchResults = [];
+
+        // Função de escape robusta para caracteres especiais
+        function safeEscape(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/\\/g, '\\\\')
+                .replace(/'/g, "\\'")
+                .replace(/"/g, '\\"')
+                .replace(/\n/g, '\\n')
+                .replace(/\r/g, '\\r')
+                .replace(/\t/g, '\\t')
+                .replace(/\u2028/g, '\\u2028')
+                .replace(/\u2029/g, '\\u2029');
+        }
+
+        function escapeHtml(str) {
+            if(!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        async function doLogin() {
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            const token = document.getElementById('loginToken').value;
+            
+            if(!user || !pass) {
+                document.getElementById('loginError').innerText = "Preencha usuario e senha!";
+                return;
+            }
+            
+            GITHUB_TOKEN = token;
+            
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/dadosAdm.json`, {
+                    headers: token ? { 'Authorization': `token ${token}` } : {}
+                });
+                
+                if(!res.ok) {
+                    document.getElementById('loginError').innerText = "Erro ao acessar GitHub. Verifique o Token!";
+                    return;
+                }
+                
+                const json = await res.json();
+                const decoded = decodeURIComponent(escape(atob(json.content)));
+                const admins = JSON.parse(decoded);
+                
+                let found = null;
+                if(admins.administradores) {
+                    found = admins.administradores.find(function(a) { return a.usuario === user && a.senha === pass; });
+                } else if(admins.admin) {
+                    if(admins.admin.usuario === user && admins.admin.senha === pass) found = admins.admin;
+                }
+                
+                if(found) {
+                    ADMIN_USER = found;
+                    localStorage.setItem('admin_user', JSON.stringify(found));
+                    localStorage.setItem('github_token', token);
+                    document.getElementById('loginScreen').style.display = 'none';
+                    document.getElementById('mainApp').style.display = 'block';
+                    updateUserUI();
+                    showTab(null, 'dragdrop');
+                    showToast("Bem-vindo, " + (found.nome || found.usuario) + "!");
+                } else {
+                    document.getElementById('loginError').innerText = "Usuario ou senha invalidos!";
+                }
+            } catch(e) {
+                document.getElementById('loginError').innerText = "Erro: " + e.message;
+            }
+        }
+        
+        function updateUserUI() {
+            if(ADMIN_USER) {
+                document.getElementById('userName').innerText = ADMIN_USER.nome || ADMIN_USER.usuario;
+                if(ADMIN_USER.foto_perfil || ADMIN_USER.foto_de_perfil) {
+                    document.getElementById('userAvatar').src = ADMIN_USER.foto_perfil || ADMIN_USER.foto_de_perfil;
+                }
+            }
+        }
+        
+        function doLogout() {
+            localStorage.removeItem('admin_user');
+            localStorage.removeItem('github_token');
+            ADMIN_USER = null;
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+        }
+        
+        function showToast(msg, isError) {
+            isError = isError || false;
+            const toast = document.createElement('div');
+            toast.className = "toast " + (isError ? 'error' : '');
+            toast.innerHTML = '<i class="fas ' + (isError ? 'fa-exclamation-circle' : 'fa-check-circle') + '"></i><span>' + msg + '</span>';
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.remove(); }, 3000);
+        }
+        
+        function showTab(event, tab) {
+            var tabs = ['dragdrop', 'bulk', 'import', 'linkcheck', 'api', 'visualEditor', 'add'];
+            for(var i = 0; i < tabs.length; i++) {
+                var el = document.getElementById('view-' + tabs[i]);
+                if(el) el.classList.add('hidden');
+            }
+            document.getElementById('view-' + tab).classList.remove('hidden');
+            var btns = document.querySelectorAll('.tab-btn');
+            for(var j = 0; j < btns.length; j++) {
+                btns[j].classList.remove('active');
+            }
+            if(event && event.target) event.target.classList.add('active');
+        }
+        
+        async function fetchGitHubFile(path) {
+            var url = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/' + path;
+            var headers = GITHUB_TOKEN ? { 'Authorization': 'token ' + GITHUB_TOKEN } : {};
+            var res = await fetch(url, { headers: headers });
+            if(!res.ok) throw new Error('Erro ' + res.status);
+            var json = await res.json();
+            currentFileSha = json.sha;
+            return JSON.parse(decodeURIComponent(escape(atob(json.content))));
+        }
+        
+        async function saveGitHubFile(path, data) {
+            var url = 'https://api.github.com/repos/' + GITHUB_REPO + '/contents/' + path;
+            var content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+            var res = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: "Update via Admin", content: content, sha: currentFileSha })
+            });
+            if(!res.ok) throw new Error("Erro ao salvar");
+            var json = await res.json();
+            currentFileSha = json.content.sha;
+            return true;
+        }
+        
+        function setApiSource(source) {
+            currentApiSource = source;
+            var btns = document.querySelectorAll('.api-source-btn');
+            for(var i = 0; i < btns.length; i++) {
+                btns[i].classList.remove('active');
+                if(btns[i].getAttribute('data-api') === source) btns[i].classList.add('active');
+            }
+            if(lastSearchResults.length > 0) {
+                filterAndRenderResults(lastSearchResults);
+            }
+        }
+        
+        function filterAndRenderResults(results) {
+            if(currentApiSource === 'all') {
+                renderHorizontalResults(results);
+            } else {
+                var filtered = [];
+                for(var i = 0; i < results.length; i++) {
+                    if(results[i].source === currentApiSource) filtered.push(results[i]);
+                }
+                renderHorizontalResults(filtered);
+            }
+        }
+        
+        async function searchAllApis() {
+            var query = document.getElementById('apiSearchInput').value.trim();
+            if(!query) {
+                showToast("Digite o nome do app para buscar!", true);
+                return;
+            }
+            
+            var resultsDiv = document.getElementById('apiResultsHorizontal');
+            resultsDiv.innerHTML = '<div style="width:100%; text-align:center; padding:40px;"><div class="spinner"></div><p style="margin-top:12px;">Buscando...</p></div>';
+            
+            var allResults = [];
+            
+            try {
+                var appstoreRes = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent(query) + '&entity=software&limit=8');
+                var appstoreData = await appstoreRes.json();
+                if(appstoreData.results) {
+                    for(var i = 0; i < appstoreData.results.length; i++) {
+                        var app = appstoreData.results[i];
+                        allResults.push({
+                            source: "appstore",
+                            sourceName: "App Store",
+                            name: app.trackName,
+                            logo: app.artworkUrl512,
+                            description: app.description ? app.description.substring(0, 150) : '',
+                            developer: app.artistName,
+                            version: app.version,
+                            size: app.fileSizeBytes ? (app.fileSizeBytes / 1024 / 1024).toFixed(1) + " MB" : '--',
+                            link: app.trackViewUrl
+                        });
+                    }
+                }
+            } catch(e) { console.log("App Store error:", e); }
+            
+            try {
+                var steamRes = await fetch('https://store.steampowered.com/api/storesearch/?term=' + encodeURIComponent(query) + '&cc=br&l=portuguese');
+                var steamData = await steamRes.json();
+                if(steamData.items) {
+                    for(var j = 0; j < steamData.items.length && j < 5; j++) {
+                        var item = steamData.items[j];
+                        allResults.push({
+                            source: "steam",
+                            sourceName: "Steam",
+                            name: item.name,
+                            logo: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/' + item.id + '/header.jpg',
+                            description: item.short_description || 'Jogo disponivel na Steam',
+                            developer: item.developer || 'Steam',
+                            version: '--',
+                            size: '--',
+                            link: 'https://store.steampowered.com/app/' + item.id
+                        });
+                    }
+                }
+            } catch(e) { console.log("Steam error:", e); }
+            
+            try {
+                var githubRes = await fetch('https://api.github.com/search/repositories?q=' + encodeURIComponent(query) + '&sort=stars&per_page=5');
+                var githubData = await githubRes.json();
+                if(githubData.items) {
+                    for(var k = 0; k < githubData.items.length; k++) {
+                        var repo = githubData.items[k];
+                        allResults.push({
+                            source: "github",
+                            sourceName: "GitHub",
+                            name: repo.name,
+                            logo: repo.owner ? repo.owner.avatar_url : '',
+                            description: repo.description || 'Repositorio open source',
+                            developer: repo.owner ? repo.owner.login : 'Desconhecido',
+                            version: repo.language || '--',
+                            size: (repo.size || 0) + " KB",
+                            link: repo.html_url
+                        });
+                    }
+                }
+            } catch(e) { console.log("GitHub error:", e); }
+            
+            if(allResults.length === 0) {
+                allResults = [{
+                    source: "info",
+                    sourceName: "Dica",
+                    name: query,
+                    logo: "https://via.placeholder.com/80",
+                    description: "Voce pode adicionar manualmente",
+                    developer: "Librays",
+                    version: "1.0",
+                    size: "--",
+                    link: "#"
+                }];
+            }
+            
+            lastSearchResults = allResults;
+            filterAndRenderResults(allResults);
+            showToast(allResults.length + " resultados encontrados!");
+        }
+        
+        function renderHorizontalResults(results) {
+            var container = document.getElementById('apiResultsHorizontal');
+            if(!results.length) {
+                container.innerHTML = '<div style="text-align:center; width:100%; padding:40px; color:var(--text-secondary);"><i class="fas fa-search"></i><p>Nenhum resultado encontrado</p></div>';
+                return;
+            }
+            
+            var html = '';
+            for(var i = 0; i < results.length; i++) {
+                var app = results[i];
+                var safeName = safeEscape(app.name);
+                var safeLogo = safeEscape(app.logo || 'https://via.placeholder.com/80');
+                var safeDesc = safeEscape(app.description || '');
+                var safeDev = safeEscape(app.developer || 'Desconhecido');
+                var safeVersion = safeEscape(app.version || '');
+                var safeSize = safeEscape(app.size || '');
+                
+                html += '<div class="result-card-horizontal" onclick="importToAddForm(\'' + safeName + '\', \'' + safeLogo + '\', \'' + safeDesc + '\', \'' + safeDev + '\', \'' + safeVersion + '\', \'' + safeSize + '\')">';
+                html += '<img src="' + (app.logo || 'https://via.placeholder.com/80') + '" onerror="this.src=\'https://via.placeholder.com/80\'">';
+                html += '<h4>' + escapeHtml(app.name.substring(0, 30)) + '</h4>';
+                html += '<p>' + escapeHtml(app.developer || 'Desconhecido') + '</p>';
+                html += '<p style="font-size:0.55rem; background:var(--primary-dark); display:inline-block; padding:2px 8px; border-radius:12px;">' + escapeHtml(app.sourceName) + '</p>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+        
+        async function searchFromAddPage() {
+            var query = document.getElementById('f_name').value.trim();
+            if(!query) {
+                showToast("Digite o nome do app no campo Nome primeiro!", true);
+                return;
+            }
+            
+            var resultsContainer = document.getElementById('addSearchResults');
+            resultsContainer.style.display = 'flex';
+            resultsContainer.innerHTML = '<div style="width:100%; text-align:center; padding:20px;"><div class="spinner"></div> Buscando...</div>';
+            
+            var allResults = [];
+            
+            try {
+                var res = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent(query) + '&entity=software&limit=6');
+                var data = await res.json();
+                if(data.results) {
+                    for(var i = 0; i < data.results.length; i++) {
+                        var app = data.results[i];
+                        allResults.push({
+                            name: app.trackName,
+                            logo: app.artworkUrl512,
+                            description: app.description ? app.description.substring(0, 200) : '',
+                            developer: app.artistName,
+                            version: app.version,
+                            size: app.fileSizeBytes ? (app.fileSizeBytes / 1024 / 1024).toFixed(1) + " MB" : '--'
+                        });
+                    }
+                }
+            } catch(e) {}
+            
+            try {
+                var res2 = await fetch('https://api.github.com/search/repositories?q=' + encodeURIComponent(query) + '&sort=stars&per_page=3');
+                var data2 = await res2.json();
+                if(data2.items) {
+                    for(var j = 0; j < data2.items.length; j++) {
+                        var repo = data2.items[j];
+                        allResults.push({
+                            name: repo.name,
+                            logo: repo.owner ? repo.owner.avatar_url : '',
+                            description: repo.description || 'Repositorio open source',
+                            developer: repo.owner ? repo.owner.login : 'Desconhecido',
+                            version: repo.language || '--',
+                            size: (repo.size || 0) + " KB"
+                        });
+                    }
+                }
+            } catch(e) {}
+            
+            if(allResults.length === 0) {
+                resultsContainer.innerHTML = '<div style="width:100%; text-align:center; padding:20px; color:var(--text-secondary);">Nenhum resultado encontrado</div>';
+                return;
+            }
+            
+            var html = '';
+            for(var k = 0; k < allResults.length; k++) {
+                var app = allResults[k];
+                var safeName = safeEscape(app.name);
+                var safeLogo = safeEscape(app.logo || 'https://via.placeholder.com/80');
+                var safeDesc = safeEscape(app.description || '');
+                var safeDev = safeEscape(app.developer || 'Desconhecido');
+                var safeVersion = safeEscape(app.version || '');
+                var safeSize = safeEscape(app.size || '');
+                
+                html += '<div class="result-card-horizontal" onclick="fillFormFromResult(\'' + safeName + '\', \'' + safeLogo + '\', \'' + safeDesc + '\', \'' + safeDev + '\', \'' + safeVersion + '\', \'' + safeSize + '\')">';
+                html += '<img src="' + (app.logo || 'https://via.placeholder.com/80') + '" onerror="this.src=\'https://via.placeholder.com/80\'">';
+                html += '<h4>' + escapeHtml(app.name.substring(0, 25)) + '</h4>';
+                html += '<p>' + escapeHtml(app.developer || 'Desconhecido') + '</p>';
+                html += '</div>';
+            }
+            resultsContainer.innerHTML = html;
+            showToast(allResults.length + " resultados encontrados!");
+        }
+        
+        function fillFormFromResult(name, logo, description, developer, version, size) {
+            document.getElementById('f_name').value = name;
+            document.getElementById('f_logo').value = logo;
+            document.getElementById('f_desc').value = description;
+            document.getElementById('f_ver').value = version;
+            document.getElementById('f_size').value = size;
+            document.getElementById('f_dev').value = developer;
+            document.getElementById('f_link').value = '';
+            document.getElementById('addSearchResults').style.display = 'none';
+            genJSON();
+            showToast('"' + name + '" importado! Configure o link de download.');
+        }
+        
+        function importToAddForm(name, logo, description, developer, version, size) {
+            document.getElementById('f_name').value = name;
+            document.getElementById('f_logo').value = logo;
+            document.getElementById('f_desc').value = description;
+            document.getElementById('f_ver').value = version;
+            document.getElementById('f_size').value = size;
+            document.getElementById('f_dev').value = developer;
+            document.getElementById('f_link').value = '';
+            showTab(null, 'add');
+            genJSON();
+            showToast('"' + name.substring(0, 30) + '" importado! Configure o link de download.');
+        }
+        
+        function genJSON() {
+            var data = {
+                id: Date.now(),
+                name: document.getElementById('f_name').value,
+                logo: document.getElementById('f_logo').value,
+                desc: document.getElementById('f_desc').value,
+                version: document.getElementById('f_ver').value,
+                size: document.getElementById('f_size').value,
+                dev: document.getElementById('f_dev') ? document.getElementById('f_dev').value : '',
+                link: document.getElementById('f_link').value,
+                category: document.getElementById('f_category').value
+            };
+            var previewDiv = document.getElementById('previewJSON');
+            if(previewDiv) previewDiv.innerHTML = JSON.stringify(data, null, 2);
+            return data;
+        }
+        
+        async function saveNewApp() {
+            var path = document.getElementById('gh_path').value;
+            var newApp = genJSON();
+            if(!newApp.name) return showToast("Preencha o nome!", true);
+            try {
+                var current = await fetchGitHubFile(path);
+                if(!Array.isArray(current)) current = [current];
+                current.push(newApp);
+                await saveGitHubFile(path, current);
+                showToast("✅ " + newApp.name + " adicionado!");
+                document.getElementById('f_name').value = '';
+                document.getElementById('f_logo').value = '';
+                document.getElementById('f_desc').value = '';
+                document.getElementById('f_ver').value = '';
+                document.getElementById('f_size').value = '';
+                document.getElementById('f_dev').value = '';
+                document.getElementById('f_link').value = '';
+                genJSON();
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        var dragIndex = null;
+        
+        async function loadDragDropApps() {
+            var path = document.getElementById('dragdrop_file').value;
+            try {
+                currentDragApps = await fetchGitHubFile(path);
+                if(!Array.isArray(currentDragApps)) currentDragApps = [currentDragApps];
+                renderDragDropList();
+                showToast(currentDragApps.length + " apps carregados");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        function renderDragDropList() {
+            var container = document.getElementById('dragdropList');
+            var html = '';
+            for(var i = 0; i < currentDragApps.length; i++) {
+                var app = currentDragApps[i];
+                html += '<div class="app-item" draggable="true" data-index="' + i + '" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="drop(event)" ondragend="dragEnd(event)">';
+                html += '<div style="display:flex; align-items:center; gap:12px;">';
+                html += '<i class="fas fa-grip-vertical drag-handle"></i>';
+                html += '<img src="' + (app.logo || 'https://via.placeholder.com/40') + '" style="width:40px;height:40px;border-radius:8px;">';
+                html += '<div><strong>' + escapeHtml(app.name || 'Sem nome') + '</strong><br><small>' + (app.version || '-') + '</small></div>';
+                html += '</div>';
+                html += '<span class="badge">#' + (i+1) + '</span>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+        
+        function dragStart(e) {
+            dragIndex = parseInt(e.target.closest('.app-item').dataset.index);
+            e.target.closest('.app-item').classList.add('dragging');
+        }
+        
+        function dragOver(e) {
+            e.preventDefault();
+            e.target.closest('.app-item').classList.add('drag-over');
+        }
+        
+        function drop(e) {
+            e.preventDefault();
+            var target = e.target.closest('.app-item');
+            if(!target) return;
+            var targetIndex = parseInt(target.dataset.index);
+            if(dragIndex !== null && dragIndex !== targetIndex) {
+                var moved = currentDragApps.splice(dragIndex, 1)[0];
+                currentDragApps.splice(targetIndex, 0, moved);
+                renderDragDropList();
+                showToast("Ordem alterada! Clique em Salvar para confirmar.");
+            }
+        }
+        
+        function dragEnd(e) {
+            var items = document.querySelectorAll('.app-item');
+            for(var i = 0; i < items.length; i++) {
+                items[i].classList.remove('dragging', 'drag-over');
+            }
+        }
+        
+        async function saveDragDropOrder() {
+            var path = document.getElementById('dragdrop_file').value;
+            try {
+                await saveGitHubFile(path, currentDragApps);
+                showToast("Ordem salva com sucesso!");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        async function loadBulkApps() {
+            var path = document.getElementById('bulk_file').value;
+            try {
+                currentBulkApps = await fetchGitHubFile(path);
+                if(!Array.isArray(currentBulkApps)) currentBulkApps = [currentBulkApps];
+                renderBulkEditor();
+                showToast(currentBulkApps.length + " apps carregados");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        function renderBulkEditor() {
+            var container = document.getElementById('bulkAppsContainer');
+            var html = '';
+            for(var i = 0; i < currentBulkApps.length; i++) {
+                var app = currentBulkApps[i];
+                html += '<div class="app-item" style="display:block;">';
+                html += '<div style="margin-bottom:12px;"><strong>' + escapeHtml(app.name || 'App '+(i+1)) + '</strong></div>';
+                html += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">';
+                html += '<input type="text" id="bulk_name_' + i + '" value="' + escapeHtml(app.name || '') + '" placeholder="Nome">';
+                html += '<input type="text" id="bulk_link_' + i + '" value="' + escapeHtml(app.link || '') + '" placeholder="Link">';
+                html += '<input type="text" id="bulk_version_' + i + '" value="' + escapeHtml(app.version || '') + '" placeholder="Versao">';
+                html += '<input type="text" id="bulk_size_' + i + '" value="' + escapeHtml(app.size || '') + '" placeholder="Tamanho">';
+                html += '</div></div>';
+            }
+            container.innerHTML = html;
+        }
+        
+        function collectBulkData() {
+            for(var i = 0; i < currentBulkApps.length; i++) {
+                var name = document.getElementById('bulk_name_' + i);
+                var link = document.getElementById('bulk_link_' + i);
+                var version = document.getElementById('bulk_version_' + i);
+                var size = document.getElementById('bulk_size_' + i);
+                if(name) currentBulkApps[i].name = name.value;
+                if(link) currentBulkApps[i].link = link.value;
+                if(version) currentBulkApps[i].version = version.value;
+                if(size) currentBulkApps[i].size = size.value;
+            }
+        }
+        
+        async function saveBulkChanges() {
+            var path = document.getElementById('bulk_file').value;
+            collectBulkData();
+            try {
+                await saveGitHubFile(path, currentBulkApps);
+                showToast("Todas as alteracoes salvas!");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        async function importFromFile() {
+            var file = document.getElementById('importFile').files[0];
+            if(!file) return showToast("Selecione um arquivo!", true);
+            var text = await file.text();
+            processImport(text);
+        }
+        
+        function importFromText() {
+            var text = document.getElementById('importJSON').value;
+            if(!text) return showToast("Cole um JSON!", true);
+            processImport(text);
+        }
+        
+        function processImport(text) {
+            try {
+                var data = JSON.parse(text);
+                if(!Array.isArray(data)) data = [data];
+                var preview = document.getElementById('importPreview');
+                var html = '';
+                for(var i = 0; i < data.length; i++) {
+                    html += '<div class="app-item"><strong>' + escapeHtml(data[i].name || 'Sem nome') + '</strong> - ' + escapeHtml(data[i].link || 'Sem link') + '</div>';
+                }
+                preview.innerHTML = html;
+                window.importData = data;
+                showToast(data.length + " apps prontos para importar.");
+            } catch(e) { showToast("JSON invalido: " + e.message, true); }
+        }
+        
+        async function validateLinks() {
+            var path = document.getElementById('linkcheck_file').value;
+            try {
+                var apps = await fetchGitHubFile(path);
+                var appsArray = Array.isArray(apps) ? apps : [apps];
+                var results = document.getElementById('linkResults');
+                results.innerHTML = '<div style="padding:20px"><div class="spinner"></div> Validando links...</div>';
+                var valid = 0, invalid = 0;
+                var invalidLinks = [];
+                for(var i = 0; i < appsArray.length; i++) {
+                    var app = appsArray[i];
+                    if(app.link) {
+                        try {
+                            await fetch(app.link, { method: 'HEAD', mode: 'no-cors' });
+                            valid++;
+                        } catch(e) {
+                            invalid++;
+                            invalidLinks.push(app.name);
+                        }
+                    }
+                }
+                results.innerHTML = '<div style="padding:16px; background:' + (invalid > 0 ? 'var(--danger)' : 'var(--success)') + '20; border-radius:12px;">' +
+                    '<h3>Resultado:</h3>' +
+                    '<p>Links validos: ' + valid + '</p>' +
+                    '<p>Links invalidos: ' + invalid + '</p>' +
+                    (invalidLinks.length ? '<p>Apps com problemas: ' + invalidLinks.join(', ') + '</p>' : '') +
+                    '</div>';
+                showToast(invalid + " links com problema encontrados");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        function switchRepository() {
+            var selected = document.getElementById('repoSelect').value;
+            GITHUB_REPO = selected;
+            showToast("Repositorio alterado para: " + selected);
+        }
+        
+        function addNewRepository() {
+            var newRepo = prompt("Digite o repositorio no formato: usuario/repo");
+            if(newRepo) {
+                repositories.push({ name: newRepo.split('/')[1], url: newRepo });
+                var select = document.getElementById('repoSelect');
+                var html = '';
+                for(var i = 0; i < repositories.length; i++) {
+                    html += '<option value="' + repositories[i].url + '">' + repositories[i].name + '</option>';
+                }
+                select.innerHTML = html;
+                select.value = newRepo;
+                GITHUB_REPO = newRepo;
+                showToast("Repositorio " + newRepo + " adicionado!");
+            }
+        }
+        
+        var repositories = [{ name: "LIBRAYS-MODS", url: "Fu6rfho5zf/LIBRAYS-MODS" }];
+        
+        async function loadVisualEditor() {
+            var path = document.getElementById('visual_file').value;
+            try {
+                currentVisualApps = await fetchGitHubFile(path);
+                if(!Array.isArray(currentVisualApps)) currentVisualApps = [currentVisualApps];
+                renderVisualEditor();
+                showToast(currentVisualApps.length + " apps carregados");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        function renderVisualEditor() {
+            var container = document.getElementById('visualEditorContainer');
+            var html = '';
+            for(var i = 0; i < currentVisualApps.length; i++) {
+                var app = currentVisualApps[i];
+                html += '<div class="app-item" style="display:block;">';
+                html += '<div><strong><input type="text" id="vis_name_' + i + '" value="' + escapeHtml(app.name || '') + '" style="font-weight:bold; margin-bottom:8px; width:100%;"></strong></div>';
+                html += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">';
+                html += '<input type="text" id="vis_logo_' + i + '" value="' + escapeHtml(app.logo || '') + '" placeholder="Logo URL">';
+                html += '<input type="text" id="vis_link_' + i + '" value="' + escapeHtml(app.link || '') + '" placeholder="Link">';
+                html += '<input type="text" id="vis_version_' + i + '" value="' + escapeHtml(app.version || '') + '" placeholder="Versao">';
+                html += '<input type="text" id="vis_size_' + i + '" value="' + escapeHtml(app.size || '') + '" placeholder="Tamanho">';
+                html += '</div>';
+                html += '<textarea id="vis_desc_' + i + '" rows="2" placeholder="Descricao">' + escapeHtml(app.desc || '') + '</textarea>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+        
+        function collectVisualData() {
+            for(var i = 0; i < currentVisualApps.length; i++) {
+                var name = document.getElementById('vis_name_' + i);
+                var logo = document.getElementById('vis_logo_' + i);
+                var link = document.getElementById('vis_link_' + i);
+                var version = document.getElementById('vis_version_' + i);
+                var size = document.getElementById('vis_size_' + i);
+                var desc = document.getElementById('vis_desc_' + i);
+                if(name) currentVisualApps[i].name = name.value;
+                if(logo) currentVisualApps[i].logo = logo.value;
+                if(link) currentVisualApps[i].link = link.value;
+                if(version) currentVisualApps[i].version = version.value;
+                if(size) currentVisualApps[i].size = size.value;
+                if(desc) currentVisualApps[i].desc = desc.value;
+            }
+        }
+        
+        async function saveVisualEditor() {
+            var path = document.getElementById('visual_file').value;
+            collectVisualData();
+            try {
+                await saveGitHubFile(path, currentVisualApps);
+                showToast("Alteracoes salvas!");
+            } catch(e) { showToast("Erro: " + e.message, true); }
+        }
+        
+        window.onload = function() {
+            var savedUser = localStorage.getItem('admin_user');
+            var savedToken = localStorage.getItem('github_token');
+            if(savedUser && savedToken) {
+                ADMIN_USER = JSON.parse(savedUser);
+                GITHUB_TOKEN = savedToken;
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+                updateUserUI();
+                showTab(null, 'dragdrop');
+            }
+        };
+        
+        window.doLogin = doLogin;
+        window.doLogout = doLogout;
+        window.showTab = showTab;
+        window.loadDragDropApps = loadDragDropApps;
+        window.saveDragDropOrder = saveDragDropOrder;
+        window.loadBulkApps = loadBulkApps;
+        window.saveBulkChanges = saveBulkChanges;
+        window.importFromFile = importFromFile;
+        window.importFromText = importFromText;
+        window.validateLinks = validateLinks;
+        window.switchRepository = switchRepository;
+        window.addNewRepository = addNewRepository;
+        window.setApiSource = setApiSource;
+        window.searchAllApis = searchAllApis;
+        window.searchFromAddPage = searchFromAddPage;
+        window.fillFormFromResult = fillFormFromResult;
+        window.importToAddForm = importToAddForm;
+        window.loadVisualEditor = loadVisualEditor;
+        window.saveVisualEditor = saveVisualEditor;
+        window.saveNewApp = saveNewApp;
+        window.genJSON = genJSON;
+        window.dragStart = dragStart;
+        window.dragOver = dragOver;
+        window.drop = drop;
+        window.dragEnd = dragEnd;
+    </script>
+</body>
+</html>
