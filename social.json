@@ -43,20 +43,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Social"
-  },
-  {
-    "id": 1774567453373,
-    "name": "Telegram",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png",
-    "desc": "Mensagens rápidas e seguras com criptografia. Canais ilimitados, bots e muito mais.",
-    "version": "10.2.0",
-    "size": "85 MB",
-    "dev": "Telegram FZ-LLC",
-    "link": "https://telegram.org/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Social"
   }
 ]
