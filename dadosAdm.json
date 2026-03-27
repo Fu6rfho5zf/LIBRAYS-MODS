@@ -1,0 +1,13 @@
+{
+  "administradores": [
+    {
+      "id": 1,
+      "nome": "DANIEL",
+      "foto_perfil": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0g-Ycaoy3dt6rngETqwHLi5jscYpqgBpBXKSoP1oGWg&s=10",
+      "cargo": "Administrador Master",
+      "usuario": "DANIEL",
+      "senha": "001",
+      "status": "ativo"
+    }
+  ]
+}
