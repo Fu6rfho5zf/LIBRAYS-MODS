@@ -1,20 +1,5 @@
 [
   {
-    "id": 1774567453370,
-    "name": "Instagram",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/512px-Instagram_logo_2016.svg.png",
-    "desc": "Compartilhe fotos, stories e conecte-se com amigos do mundo todo. Edite suas fotos com filtros incríveis, crie Reels e explore conteúdos que você ama.",
-    "version": "280.0",
-    "size": "42 MB",
-    "dev": "Meta",
-    "link": "https://www.instagram.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Social"
-  },
-  {
     "id": 1774567453371,
     "name": "WhatsApp",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png",
