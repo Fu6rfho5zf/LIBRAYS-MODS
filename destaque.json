@@ -1,38 +1,62 @@
 [
-    {
-        "id": 1,
-        "title": "🔥 Free Fire x JUJUTSU KAISEN",
-        "description": "Evento épico! Novas skins e habilidades especiais",
-        "buttonText": "Baixar Agora",
-        "color": "#6366f1",
-        "link": "#",
-        "image": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/4b/8d/ba/4b8dba37-a240-f450-9f99-c3a611c96536/AppIcon-1767797054-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg"
-    },
-    {
-        "id": 2,
-        "title": "🎮 Call of Duty Mobile",
-        "description": "Nova temporada com mapas e armas exclusivas",
-        "buttonText": "Explorar",
-        "color": "#8b5cf6",
-        "link": "#",
-        "image": "https://play-lh.googleusercontent.com/9y7xT8w0CkYvM8Zq8t5R5q8q8q8q8q8q8q8q8q"
-    },
-    {
-        "id": 3,
-        "title": "📱 Apps em Promoção",
-        "description": "Até 70% de desconto nos melhores apps",
-        "buttonText": "Ver Ofertas",
-        "color": "#10b981",
-        "link": "#",
-        "image": ""
-    },
-    {
-        "id": 4,
-        "title": "⭐ Top da Semana",
-        "description": "Os aplicativos mais baixados da semana",
-        "buttonText": "Ver Mais",
-        "color": "#f59e0b",
-        "link": "#",
-        "image": ""
-    }
+  {
+    "id": 1,
+    "name": "Sem nome",
+    "logo": "",
+    "desc": "Evento épico! Novas skins e habilidades especiais",
+    "version": "1.0",
+    "size": "--",
+    "dev": "Desconhecido",
+    "link": "#",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "destaque"
+  },
+  {
+    "id": 2,
+    "name": "Sem nome",
+    "logo": "",
+    "desc": "Nova temporada com mapas e armas exclusivas",
+    "version": "1.0",
+    "size": "--",
+    "dev": "Desconhecido",
+    "link": "#",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "destaque"
+  },
+  {
+    "id": 3,
+    "name": "Sem nome",
+    "logo": "",
+    "desc": "Até 70% de desconto nos melhores apps",
+    "version": "1.0",
+    "size": "--",
+    "dev": "Desconhecido",
+    "link": "#",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "destaque"
+  },
+  {
+    "id": 4,
+    "name": "Sem nome",
+    "logo": "",
+    "desc": "Os aplicativos mais baixados da semana",
+    "version": "1.0",
+    "size": "--",
+    "dev": "Desconhecido",
+    "link": "#",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "destaque"
+  }
 ]
