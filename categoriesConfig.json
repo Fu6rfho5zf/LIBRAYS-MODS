@@ -1,0 +1,17 @@
+{
+  "categories": [
+    "teste",
+    "jogos",
+    "social",
+    "entretenimento",
+    "musica"
+  ],
+  "icons": {
+    "teste": "💭",
+    "jogos": "📱",
+    "social": "📱",
+    "entretenimento": "📱",
+    "musica": "📱"
+  },
+  "lastUpdate": "2026-03-27T23:38:16.581Z"
+}
