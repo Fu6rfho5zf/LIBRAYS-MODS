@@ -1,17 +1,1 @@
-[
-  {
-    "id": 1774567453383,
-    "name": "Prime Video",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Amazon_Prime_Video_logo.svg/512px-Amazon_Prime_Video_logo.svg.png",
-    "desc": "Assista a séries e filmes exclusivos da Amazon. Inclui The Boys, The Marvelous Mrs. Maisel e muito mais.",
-    "version": "3.0.0",
-    "size": "45 MB",
-    "dev": "Amazon",
-    "link": "https://www.primevideo.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Entretenimento"
-  }
-]
+[]
