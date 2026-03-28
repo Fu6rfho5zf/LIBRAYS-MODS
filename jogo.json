@@ -15,21 +15,6 @@
     "category": "Jogos"
   },
   {
-    "id": 1774614331588,
-    "name": "My Supermarket Simulator 3D®",
-    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/34/0d/9d340de4-9853-fdad-b1b8-f33d8e7cadba/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
-    "desc": "My Supermarket Simulator 3D Game: Master yourself in this Management Simulation!\n\nTake charge as a grocery store manager in this exciting retail store simulator. In this immersive business simulator, ",
-    "version": "1.28.2",
-    "size": "507.2 MB",
-    "dev": "Game District LLC",
-    "link": "https://download2393.mediafire.com/251jl2lkdn8g7gYUl84Ia2jKlRIoONdHip9rW_rtisGhkYOkhFDUaG6lb5taxsf5I8TrhRuL6vUgPsd363h-XPoEvw9sA9Pvwy_NTc9xKzGbbGyTZFtCCxPBJUDlXoVGBQe88svSgxK2eyZt3x_kxERLQwSWPQHGXAbd6Wey_-RK9u_V/ov8mkijhve2ojrq/my-supermarket-simulator-3d-v1.29.0-mod.apk",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "jogo"
-  },
-  {
     "id": 1774666190134,
     "name": "Good Pizza, Great Pizza",
     "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/af/b0/cc/afb0cc31-66d3-bc81-3b38-fbd0d376fa7a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
@@ -38,6 +23,21 @@
     "size": "399.1 MB",
     "dev": "TAPBLAZE",
     "link": "https://download2276.mediafire.com/ymco9rvgzjcg2eTomy-mhm14v5kFycSXzm12nGOqJMmo-WquOOQCdP69rlX5wckskF9zeM90l8-Tj9aOijQUr5VHVzNEtxtE2HkklD-fDGD0a1wlr9JpSZRkIjp5qBNddQvNRmOOK_s37vmHhUx6znwh9zfk8cOq27gd23lnyA4jmbW8/id4axin8sbnhg99/good-pizza-v5.47.3.2.apk",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
+  },
+  {
+    "id": 1774614331588,
+    "name": "My Supermarket Simulator 3D®",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/9d/34/0d/9d340de4-9853-fdad-b1b8-f33d8e7cadba/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
+    "desc": "My Supermarket Simulator 3D Game: Master yourself in this Management Simulation!\n\nTake charge as a grocery store manager in this exciting retail store simulator. In this immersive business simulator, ",
+    "version": "1.28.2",
+    "size": "507.2 MB",
+    "dev": "Game District LLC",
+    "link": "https://download2393.mediafire.com/251jl2lkdn8g7gYUl84Ia2jKlRIoONdHip9rW_rtisGhkYOkhFDUaG6lb5taxsf5I8TrhRuL6vUgPsd363h-XPoEvw9sA9Pvwy_NTc9xKzGbbGyTZFtCCxPBJUDlXoVGBQe88svSgxK2eyZt3x_kxERLQwSWPQHGXAbd6Wey_-RK9u_V/ov8mkijhve2ojrq/my-supermarket-simulator-3d-v1.29.0-mod.apk",
     "linkArm64": "",
     "linkArm32": "",
     "hasArm64": false,
