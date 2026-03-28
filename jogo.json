@@ -43,5 +43,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
+  },
+  {
+    "id": 1774666373216,
+    "name": "My Mini Mart",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/25/a0/47/25a047cd-4ef2-1a4e-9a99-a9155da392b8/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "desc": "My Mini Mart: Your Pocket-Sized Business Empire\n\nBecome the Ultimate Retail Tycoon!\n\nEmbark on a fun and challenging journey as you build and manage your very own mini mart. From humble beginnings to ",
+    "version": "1.87.2",
+    "size": "586.6 MB",
+    "dev": "SUPERSONIC STUDIOS LTD",
+    "link": "https://cloud.9mod.space/My%20Mini%20Mart/My-Mini-Mart-1.88.0-mod.apk?token=TVRjM05EWTNOekV5TlE9PQ%3D%3D",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
