@@ -13,20 +13,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Música"
-  },
-  {
-    "id": 1774567453391,
-    "name": "Deezer",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Deezer_logo.svg/512px-Deezer_logo.svg.png",
-    "desc": "Ouça milhões de músicas, descubra novos artistas e crie suas playlists personalizadas.",
-    "version": "7.0.0",
-    "size": "28 MB",
-    "dev": "Deezer",
-    "link": "https://www.deezer.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Música"
   }
 ]
