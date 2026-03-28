@@ -58,5 +58,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
+  },
+  {
+    "id": 1774666556425,
+    "name": "Avatar World ®",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/1a/5b/ad/1a5bad18-a6d4-e1cf-9c9f-e9c35a41388d/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "desc": "Welcome to Avatar World, the most innovative role-playing game of 2024.\nExplore and experience a fun and super cute world, full of incredible locations, towns, cities and characters, with endless item",
+    "version": "2.142",
+    "size": "1196.2 MB",
+    "dev": "Pazu Games Ltd",
+    "link": "https://cloud.9mod.space/Avatar%20World/Avatar-World-1.203-mod.apk?token=TVRjM05EWTNOekkwTlE9PQ%3D%3D",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
