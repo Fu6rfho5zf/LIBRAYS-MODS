@@ -73,5 +73,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
+  },
+  {
+    "id": 1774666646229,
+    "name": "Days After: Zombie Survival",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7b/0c/27/7b0c277e-5c52-a50f-bdef-e31ae3723a80/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "desc": "Survive in harsh conditions and collect resources to craft equipment and tools. Construct weapons and build your base. Fight off wild animals and zombies. You'll never have a moment of peace. If you w",
+    "version": "13.1.1",
+    "size": "1556.4 MB",
+    "dev": "My.Games Venture Capital LTD",
+    "link": "https://cloud.9mod.space/Days%20After/Days-After-Zombie-Survival-v13.2.0-mod-9mod.com.apk?token=TVRjM05EWTNOek00TkE9PQ%3D%3D",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
