@@ -1,20 +1,5 @@
 [
   {
-    "id": 1774567453380,
-    "name": "TikTok",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/TikTok_logo.svg/512px-TikTok_logo.svg.png",
-    "desc": "Vídeos curtos que vão te surpreender e entreter por horas. Crie conteúdos incríveis com efeitos especiais, músicas virais e ferramentas de edição profissionais.",
-    "version": "31.0.0",
-    "size": "180 MB",
-    "dev": "ByteDance",
-    "link": "https://www.tiktok.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Entretenimento"
-  },
-  {
     "id": 1774567453381,
     "name": "Netflix",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Netflix_icon.svg/512px-Netflix_icon.svg.png",
