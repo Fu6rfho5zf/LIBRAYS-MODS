@@ -1,20 +1,5 @@
 [
   {
-    "id": 1774567453381,
-    "name": "Netflix",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Netflix_icon.svg/512px-Netflix_icon.svg.png",
-    "desc": "Séries, filmes e originais Netflix com qualidade de imagem excepcional. Assista offline, crie perfis para toda família e descubra novos conteúdos.",
-    "version": "8.45.0",
-    "size": "28 MB",
-    "dev": "Netflix, Inc.",
-    "link": "https://www.netflix.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Entretenimento"
-  },
-  {
     "id": 1774567453382,
     "name": "YouTube",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/512px-YouTube_full-color_icon_%282017%29.svg.png",
