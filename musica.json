@@ -28,20 +28,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Música"
-  },
-  {
-    "id": 1774567453392,
-    "name": "Apple Music",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Apple_Music_icon.svg/512px-Apple_Music_icon.svg.png",
-    "desc": "Mais de 100 milhões de músicas, playlists exclusivas e rádio ao vivo. Experiência musical completa.",
-    "version": "4.5.0",
-    "size": "45 MB",
-    "dev": "Apple Inc.",
-    "link": "https://www.apple.com/apple-music/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Música"
   }
 ]
