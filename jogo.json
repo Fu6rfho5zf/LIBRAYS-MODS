@@ -103,5 +103,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
+  },
+  {
+    "id": 1774667794835,
+    "name": "Super Sus",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b1/7f/ad/b17fad75-496a-2cda-b6cc-757dd7c39d95/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "desc": "Super Sus APK 1.75.27.031 (MOD, Dinheiro Ilimitado",
+    "version": "1.75.27",
+    "size": "567.1 MB",
+    "dev": "巨人网络科技有限公司",
+    "link": "",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
