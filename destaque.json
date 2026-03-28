@@ -58,5 +58,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "destaque"
+  },
+  {
+    "id": 1774658885635,
+    "name": "YouTube Kids",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7d/f9/ee/7df9ee45-4be0-02ce-1790-18d3414c3808/logo_youtube_kids_2024_q4_color-0-1x_U007emarketing-0-0-0-7-0-0-0-85-220-0.png/512x512bb.jpg",
+    "desc": "Inspire your kids to uncover their unique interests\nHelp your kids explore video content they love and parents trust, in an app made just for kids. With easy navigation tools and a suite of features, ",
+    "version": "11.12",
+    "size": "192.6 MB",
+    "dev": "Google",
+    "link": "eu",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "destaque"
   }
 ]
