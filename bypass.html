@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Nexbit System - Atualização Bypass</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a0c12 0%, #030507 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Fira Code', 'Courier New', 'JetBrains Mono', monospace;
+            padding: 20px;
+        }
+
+        .nexbit-container {
+            max-width: 780px;
+            width: 100%;
+            background: #0b0e14;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .status-header {
+            background: #07090e;
+            padding: 16px 20px;
+            border-bottom: 2px solid #00e0ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #00e6ff;
+            text-shadow: 0 0 3px #00ccff;
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            background: #00cc6611;
+            border: 1px solid #0f6;
+            color: #0f6;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .system-panel {
+            padding: 22px 24px;
+            background: #0a0d14;
+        }
+
+        .info-box {
+            background: #0f121c;
+            border-left: 5px solid #00b8ff;
+            border-radius: 16px;
+            padding: 15px 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .info-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #bbd9ff;
+            border-bottom: 1px dotted #2a3346;
+            padding-bottom: 4px;
+        }
+
+        .info-line strong {
+            color: #7be0ff;
+        }
+
+        .bypass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 6px;
+            margin: 12px 0;
+        }
+
+        .bypass-item {
+            background: #10131f;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: #baf0ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #232a3f;
+        }
+
+        .progress-area {
+            background: #010101cc;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0 12px;
+            border: 1px solid #2c354b;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: #aad4ff;
+        }
+
+        .progress-bar-bg {
+            background: #1f2538;
+            border-radius: 100px;
+            height: 28px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 4px #00000066;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00c3ff, #1effbc);
+            border-radius: 100px;
+            box-shadow: 0 0 8px #00e0ff;
+            transition: width 0.25s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        .timer-panel {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: #080b12;
+            padding: 12px 18px;
+            border-radius: 24px;
+            margin-top: 18px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 1px solid #29304b;
+        }
+
+        .time-box {
+            background: #010101;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #0ff;
+        }
+
+        button {
+            background: #1a253f;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #ccf4ff;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            border: 1px solid #2c80ff;
+        }
+
+        button:hover {
+            background: #00a6c4;
+            color: #0a0f1a;
+            border-color: white;
+            box-shadow: 0 0 10px cyan;
+        }
+
+        .status-msg {
+            font-size: 0.7rem;
+            color: #7f8fa4;
+            text-align: center;
+            margin-top: 18px;
+            border-top: 1px dashed #2a2f42;
+            padding-top: 14px;
+        }
+
+        .highlight {
+            color: #0f6;
+        }
+
+        hr {
+            border-color: #1f2a44;
+            margin: 12px 0;
+        }
+        
+        .small-code {
+            font-size: 0.7rem;
+            background: #00000055;
+            padding: 2px 6px;
+            border-radius: 12px;
+        }
+        
+        .duration-badge {
+            background: #00aaff22;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        
+        .config-panel {
+            background: #0a0e16;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 0.65rem;
+            border: 1px solid #2a3348;
+            display: none;
+        }
+        
+        .config-toggle {
+            cursor: pointer;
+            color: #5f8aff;
+            text-decoration: underline;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+        
+        @media (max-width: 560px) {
+            .system-panel {
+                padding: 14px;
+            }
+            .bypass-item {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="nexbit-container">
+    <div class="status-header">
+        <span class="title"> SISTEMA NEXBIT </span>
+        <span class="badge" id="liveStatusBadge"> ATIVO</span>
+    </div>
+
+    <div class="system-panel">
+        <!-- PAINEL DE CONFIGURAÇÃO JSON (OCULTO POR PADRÃO) -->
+        <div style="margin-bottom: 8px;">
+            <span class="config-toggle" onclick="toggleConfigPanel()"> [ MOSTAR CONFIGURAÇÕES JSON ]</span>
+        </div>
+        <div id="configPanel" class="config-panel">
+            <div style="color:#7be0ff; margin-bottom: 8px;"> CONFIGURAÇÃO JSON ATUAL:</div>
+            <pre id="jsonPreview" style="background:#010101; padding: 10px; border-radius: 8px; overflow-x: auto; font-size: 0.7rem; color: #8bc4ff;"></pre>
+            <div style="margin-top: 8px;">
+                <button id="applyJsonBtn" style="padding: 6px 12px; font-size: 0.7rem; margin-top: 0;"> APLICAR CONFIGURAÇÃO</button>
+                <button id="resetJsonBtn" style="padding: 6px 12px; font-size: 0.7rem; margin-top: 0;"> RESTAURAR PADRÃO</button>
+            </div>
+            <div style="font-size: 0.65rem; margin-top: 8px; color: #aaa;"> Edite o JSON abaixo e clique em "APLICAR" para alterar os tempos:</div>
+            <textarea id="jsonEditor" rows="8" style="width:100%; background:#010101; color:#0f0; border:1px solid #2c80ff; font-family: monospace; font-size: 0.7rem; padding: 8px; margin-top: 8px; border-radius: 8px;"></textarea>
+        </div>
+        
+        <div class="info-box">
+            <div class="info-line"><strong> Status:</strong> <span id="globalStatus"> ONLINE · BYPASS EM ATUALIZAÇÃO</span></div>
+            <div class="info-line"><strong> Latência:</strong> <span id="latencyValue">287ms</span></div>
+            <div class="info-line"><strong> Versão:</strong> Nexbit v4.0 · Bypass Ultra</div>
+            <div class="info-line"><strong> Admin:</strong> DANIELz7</div>
+        </div>
+
+        <div style="margin-bottom: 18px;">
+            <div style="color:#5fc3ff; margin-bottom: 10px;"> BYPASS ATIVOS & ATUALIZAÇÃO:</div>
+            <div class="bypass-grid" id="bypassList">
+                <div class="bypass-item"> Android 15 Conectado</div>
+                <div class="bypass-item"> WhatsApp Bypass </div>
+                <div class="bypass-item"> Roblox Bypass </div>
+                <div class="bypass-item"> Free Fire Bypass </div>
+                <div class="bypass-item"> Minecraft Bypass </div>
+                <div class="bypass-item"> Play Store Bypass </div>
+                <div class="bypass-item"> Games Bypass </div>
+                <div class="bypass-item"> Instagram Bypass </div>
+            </div>
+            <div class="small-code" style="margin-top: 8px;"> Atualizando módulos de segurança & bypass multi-plataforma</div>
+        </div>
+
+        <div class="progress-area">
+            <div class="progress-label">
+                <span> ATUALIZAÇÃO DE BYPASS EM ANDAMENTO</span>
+                <span id="percentDisplay">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+
+            <div class="timer-panel">
+                <div> TEMPO RESTANTE ESTIMADO:</div>
+                <div class="time-box" id="countdownDisplay">-- : -- : --</div>
+                <div> Início: <span id="startTimeLabel">--:--:--</span></div>
+            </div>
+            <div style="font-size: 0.7rem; margin-top: 12px; text-align: center; background: #03060c; border-radius: 20px; padding: 8px;">
+                 TEMPOS DISPONÍVEIS: <strong id="availableTimesDisplay" style="color:#0ff;"></strong><br>
+                 O sistema escolhe aleatoriamente entre essas durações a cada atualização
+                <div id="currentDurationDisplay" class="duration-badge" style="margin-top: 8px;"> Próxima duração: --</div>
+            </div>
+        </div>
+
+        <div class="info-box" style="border-left-color: #f0b400;">
+            <div class="info-line"><strong> O que é BYPASS?</strong></div>
+            <div style="font-size: 0.75rem; color: #b9ceff; margin-top: 5px;">
+                 Sistema de contorno de restrições para acesso liberado em jogos e apps.<br>
+                 Nexbit bypass: WhatsApp, Roblox, Free Fire, Minecraft, Instagram, Play Store.<br>
+                 Tecnologia anti-detecção e baixa latência garantida.
+            </div>
+            <hr>
+            <div class="info-line"><strong> MÉTRICAS OTIMIZADAS:</strong></div>
+            <div class="bypass-grid" style="grid-template-columns: repeat(2,1fr);">
+                <div> Free Fire: 12ms | 195ms</div>
+                <div> Roblox: 58ms | 265ms</div>
+                <div> Minecraft: 10ms | 200ms</div>
+                <div> WhatsApp: 25ms | 180ms</div>
+                <div> Instagram: 15ms | 185ms</div>
+                <div> Play Store: 40ms | 235ms</div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <button id="restartUpdateBtn"> REINICIAR ATUALIZAÇÃO</button>
+        </div>
+        <div class="status-msg" id="statusMessage">
+             Nexbit v4.0 - Sistema pronto para atualização.
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== CONFIGURAÇÃO JSON PRINCIPAL ====================
+    // ALTERE OS NÚMEROS AQUI PARA MODIFICAR OS TEMPOS FACILMENTE
+    const CONFIG = {
+        // Lista de durações em SEGUNDOS
+        // Exemplos: 15, 20, 30, 40, 50, 300 (5min), 600 (10min), 900 (15min)
+        "duracaoSegundos": [15, 20, 30, 40, 50, 300, 600, 900],
+        
+        // Configurações adicionais (opcional)
+        "configuracoes": {
+            "latenciaMinima": 70,
+            "latenciaMaxima": 380,
+            "mensagensPersonalizadas": true
+        }
+    };
+    
+    // Função para obter o label amigável de um tempo em segundos
+    function getDurationLabel(seconds) {
+        if (seconds < 60) return `${seconds} segundos`;
+        const mins = seconds / 60;
+        if (Number.isInteger(mins)) {
+            return `${mins} ${mins === 1 ? 'minuto' : 'minutos'}`;
+        }
+        return `${mins.toFixed(1)} minutos`;
+    }
+    
+    // Função para gerar texto de exibição dos tempos disponíveis
+    function getAvailableTimesText() {
+        return CONFIG.duracaoSegundos.map(sec => {
+            if (sec < 60) return `${sec}s`;
+            const mins = sec / 60;
+            return `${mins}min`;
+        }).join(' | ');
+    }
+    
+    // Variáveis de controle
+    let totalSeconds = 0;
+    let remainingSeconds = 0;
+    let intervalId = null;
+    
+    // Elementos DOM
+    const progressFillDiv = document.getElementById('progressFill');
+    const percentDisplaySpan = document.getElementById('percentDisplay');
+    const countdownSpan = document.getElementById('countdownDisplay');
+    const startTimeLabel = document.getElementById('startTimeLabel');
+    const globalStatusSpan = document.getElementById('globalStatus');
+    const latencySpan = document.getElementById('latencyValue');
+    const statusMsgDiv = document.getElementById('statusMessage');
+    const currentDurationDisplay = document.getElementById('currentDurationDisplay');
+    const liveStatusBadge = document.getElementById('liveStatusBadge');
+    const availableTimesDisplay = document.getElementById('availableTimesDisplay');
+    
+    // Atualiza o display dos tempos disponíveis
+    function updateAvailableTimesDisplay() {
+        if (availableTimesDisplay) {
+            availableTimesDisplay.innerText = getAvailableTimesText();
+        }
+    }
+    
+    // Escolhe tempo aleatório baseado no JSON
+    function escolherTempoAleatorio() {
+        if (!CONFIG.duracaoSegundos || CONFIG.duracaoSegundos.length === 0) {
+            CONFIG.duracaoSegundos = [30]; // fallback
+        }
+        const randomIndex = Math.floor(Math.random() * CONFIG.duracaoSegundos.length);
+        const chosenSeconds = CONFIG.duracaoSegundos[randomIndex];
+        const label = getDurationLabel(chosenSeconds);
+        currentDurationDisplay.innerHTML = ` TEMPO SORTEADO: ${label.toUpperCase()}`;
+        return chosenSeconds;
+    }
+    
+    function updateProgressAndTimer() {
+        if (totalSeconds === 0) return;
+        const percentCompleted = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+        const percentFixed = Math.min(100, Math.max(0, percentCompleted));
+        const percentRounded = Math.floor(percentFixed);
+        
+        progressFillDiv.style.width = percentFixed + '%';
+        if (percentFixed > 12) {
+            progressFillDiv.innerText = percentRounded + '%';
+        } else {
+            progressFillDiv.innerText = '';
+        }
+        percentDisplaySpan.innerText = percentRounded + '%';
+        
+        // Formatação do countdown
+        const hours = Math.floor(remainingSeconds / 3600);
+        const minutes = Math.floor((remainingSeconds % 3600) / 60);
+        const secs = remainingSeconds % 60;
+        let timeString = '';
+        if (hours > 0) {
+            timeString = `${hours}h ${minutes.toString().padStart(2,'0')}m ${secs.toString().padStart(2,'0')}s`;
+        } else if (minutes > 0) {
+            timeString = `${minutes}m ${secs.toString().padStart(2,'0')}s`;
+        } else {
+            timeString = `${secs}s`;
+        }
+        countdownSpan.innerText = timeString;
+        
+        // Mensagens dinâmicas
+        if (percentFixed >= 100) {
+            // finalizado
+        } else if (percentFixed > 75) {
+            statusMsgDiv.innerHTML = ' Aplicando patches finais e verificando integridade dos bypass...';
+        } else if (percentFixed > 50) {
+            statusMsgDiv.innerHTML = ' Atualizando bypass: Roblox, Free Fire, WhatsApp - anti-ban ativo';
+        } else if (percentFixed > 25) {
+            statusMsgDiv.innerHTML = ' Baixando módulos de segurança v4.2 e otimizando ping...';
+        } else if (percentFixed > 5) {
+            statusMsgDiv.innerHTML = ' Preparando servidores Nexbit e validando licenças...';
+        } else {
+            statusMsgDiv.innerHTML = ' Inicializando sistema de bypass ultra-rápido...';
+        }
+        
+        // Variação de latência
+        if (remainingSeconds > 0 && remainingSeconds < totalSeconds) {
+            const currentLat = parseInt(latencySpan.innerText) || 200;
+            const variation = Math.floor(Math.random() * 50) - 20;
+            let newLat = currentLat + variation;
+            const latMin = CONFIG.configuracoes?.latenciaMinima || 70;
+            const latMax = CONFIG.configuracoes?.latenciaMaxima || 380;
+            if (newLat < latMin) newLat = latMin;
+            if (newLat > latMax) newLat = latMax;
+            if (percentFixed > 60) {
+                newLat = Math.floor(newLat * 0.85);
+                if (newLat < latMin) newLat = latMin;
+            }
+            latencySpan.innerText = `${newLat}ms`;
+        }
+    }
+    
+    function finalizarAtualizacao() {
+        if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+        
+        progressFillDiv.style.width = '100%';
+        progressFillDiv.innerText = '100%';
+        percentDisplaySpan.innerText = '100%';
+        countdownSpan.innerText = '0s';
+        
+        globalStatusSpan.innerHTML = ' ONLINE · BYPASS ATUALIZADO ';
+        liveStatusBadge.innerHTML = ' UPGRADE CONCLUÍDO';
+        statusMsgDiv.innerHTML = ' ATUALIZAÇÃO CONCLUÍDA! Todos os bypass estão ativos, otimizados e com latência reduzida! Nexbit v4.0 estável.';
+        
+        const finalLatency = Math.floor(Math.random() * (120 - 70 + 1) + 70);
+        latencySpan.innerText = `${finalLatency}ms (ultra otimizado)`;
+        
+        const bypassItems = document.querySelectorAll('.bypass-item');
+        bypassItems.forEach(item => {
+            if (item.innerText.includes('Bypass ') && !item.innerText.includes('UPGRADE')) {
+                item.innerText = item.innerText.replace('', ' UPGRADE ');
+            }
+        });
+        
+        const oldExtra = document.querySelector('.success-banner');
+        if(oldExtra) oldExtra.remove();
+        
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-banner';
+        successDiv.style.background = '#00aa4422';
+        successDiv.style.padding = '8px 12px';
+        successDiv.style.borderRadius = '20px';
+        successDiv.style.marginTop = '12px';
+        successDiv.style.border = '1px solid #0f6';
+        successDiv.style.fontSize = '0.7rem';
+        successDiv.style.textAlign = 'center';
+        successDiv.innerHTML = ' BYPASS TOTALMENTE ATUALIZADO! Todos os serviços com PING ESTÁVEL! ';
+        const parentArea = document.querySelector('.progress-area');
+        parentArea.appendChild(successDiv);
+    }
+    
+    function animateBypassUpdating() {
+        const items = document.querySelectorAll('.bypass-item');
+        items.forEach(el => {
+            if(el.innerText.includes('Bypass ')) {
+                el.style.transition = '0.2s';
+                el.style.opacity = '0.8';
+                setTimeout(() => {
+                    if(el) el.style.opacity = '1';
+                }, 300);
+            }
+        });
+    }
+    
+    function iniciarAtualizacao() {
+        if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+        
+        totalSeconds = escolherTempoAleatorio();
+        remainingSeconds = totalSeconds;
+        
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute:'2-digit', second:'2-digit' });
+        startTimeLabel.innerText = timeStr;
+        
+        updateProgressAndTimer();
+        
+        const newLatency = Math.floor(Math.random() * (380 - 150 + 1) + 150);
+        latencySpan.innerText = `${newLatency}ms`;
+        
+        globalStatusSpan.innerHTML = ' EM MANUTENÇÃO · BYPASS UPGRADE';
+        liveStatusBadge.innerHTML = ' ATUALIZANDO';
+        statusMsgDiv.innerHTML = ` Instalando novos módulos de bypass (${getDurationLabel(totalSeconds)} estimado)...`;
+        
+        animateBypassUpdating();
+        
+        intervalId = setInterval(() => {
+            if (remainingSeconds > 0) {
+                remainingSeconds--;
+                updateProgressAndTimer();
+                if (remainingSeconds === 0) {
+                    finalizarAtualizacao();
+                }
+            } else {
+                if (remainingSeconds === 0) finalizarAtualizacao();
+            }
+        }, 1000);
+    }
+    
+    function restartUpdate() {
+        if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+        
+        progressFillDiv.style.width = '0%';
+        progressFillDiv.innerText = '';
+        percentDisplaySpan.innerText = '0%';
+        countdownSpan.innerText = '-- : -- : --';
+        
+        const successBanner = document.querySelector('.success-banner');
+        if(successBanner) successBanner.remove();
+        
+        const defaultBypass = [
+            " Android 15 Conectado",
+            " WhatsApp Bypass ",
+            " Roblox Bypass ",
+            " Free Fire Bypass ",
+            " Minecraft Bypass ",
+            " Play Store Bypass ",
+            " Games Bypass ",
+            " Instagram Bypass "
+        ];
+        const bypassDivs = document.querySelectorAll('.bypass-item');
+        bypassDivs.forEach((div, idx) => {
+            if (idx < defaultBypass.length) {
+                div.innerText = defaultBypass[idx];
+            }
+        });
+        
+        globalStatusSpan.innerHTML = ' INICIANDO NOVA ATUALIZAÇÃO...';
+        liveStatusBadge.innerHTML = ' REINICIANDO';
+        statusMsgDiv.innerHTML = ' Reiniciando processo de upgrade de bypass com nova duração aleatória...';
+        
+        iniciarAtualizacao();
+    }
+    
+    // ==================== FUNÇÕES DO JSON ====================
+    function updateJsonPreview() {
+        const preview = document.getElementById('jsonPreview');
+        const editor = document.getElementById('jsonEditor');
+        const jsonString = JSON.stringify(CONFIG, null, 2);
+        if (preview) preview.innerText = jsonString;
+        if (editor) editor.value = jsonString;
+    }
+    
+    function applyJsonConfig() {
+        try {
+            const editor = document.getElementById('jsonEditor');
+            const newConfig = JSON.parse(editor.value);
+            
+            // Valida se tem o array duracaoSegundos
+            if (newConfig.duracaoSegundos && Array.isArray(newConfig.duracaoSegundos)) {
+                CONFIG.duracaoSegundos = newConfig.duracaoSegundos;
+                if (CONFIG.configuracoes && newConfig.configuracoes) {
+                    CONFIG.configuracoes = { ...CONFIG.configuracoes, ...newConfig.configuracoes };
+                }
+                updateAvailableTimesDisplay();
+                updateJsonPreview();
+                
+                // Reinicia a atualização para aplicar os novos tempos
+                restartUpdate();
+                
+                alert(' Configuração aplicada com sucesso! Os novos tempos estão ativos.');
+            } else {
+                alert(' JSON inválido: é necessário ter um array "duracaoSegundos"');
+            }
+        } catch(e) {
+            alert(' Erro no JSON: ' + e.message);
+        }
+    }
+    
+    function resetJsonConfig() {
+        // Reset para os valores padrão
+        CONFIG.duracaoSegundos = [15, 20, 30, 40, 50, 300, 600, 900];
+        if (CONFIG.configuracoes) {
+            CONFIG.configuracoes.latenciaMinima = 70;
+            CONFIG.configuracoes.latenciaMaxima = 380;
+        }
+        updateAvailableTimesDisplay();
+        updateJsonPreview();
+        restartUpdate();
+        alert(' Configuração restaurada para o padrão!');
+    }
+    
+    function toggleConfigPanel() {
+        const panel = document.getElementById('configPanel');
+        if (panel.style.display === 'none' || panel.style.display === '') {
+            panel.style.display = 'block';
+        } else {
+            panel.style.display = 'none';
+        }
+    }
+    
+    // Inicialização
+    window.addEventListener('DOMContentLoaded', () => {
+        updateAvailableTimesDisplay();
+        updateJsonPreview();
+        iniciarAtualizacao();
+        
+        const restartBtn = document.getElementById('restartUpdateBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', () => {
+                restartUpdate();
+            });
+        }
+        
+        const applyBtn = document.getElementById('applyJsonBtn');
+        if (applyBtn) {
+            applyBtn.addEventListener('click', applyJsonConfig);
+        }
+        
+        const resetBtn = document.getElementById('resetJsonBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', resetJsonConfig);
+        }
+        
+        const nowDate = new Date();
+        startTimeLabel.innerText = nowDate.toLocaleTimeString('pt-BR');
+    });
+</script>
+</body>
+</html>
