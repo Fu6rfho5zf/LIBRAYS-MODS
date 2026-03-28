@@ -1,17 +1,1 @@
-[
-  {
-    "id": 1774567453390,
-    "name": "Spotify",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/512px-Spotify_logo_without_text.svg.png",
-    "desc": "Milhões de músicas e podcasts para você curtir com qualidade premium. Ouça suas músicas favoritas offline, sem anúncios e com a melhor qualidade de áudio.",
-    "version": "8.8.0",
-    "size": "35 MB",
-    "dev": "Spotify AB",
-    "link": "https://www.spotify.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Música"
-  }
-]
+[]
