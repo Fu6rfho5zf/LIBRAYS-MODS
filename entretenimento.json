@@ -1,20 +1,5 @@
 [
   {
-    "id": 1774567453382,
-    "name": "YouTube",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/512px-YouTube_full-color_icon_%282017%29.svg.png",
-    "desc": "Assista e compartilhe vídeos do mundo todo com milhões de criadores. Descubra músicas, tutoriais, vlogs, notícias e muito mais.",
-    "version": "18.23.0",
-    "size": "92 MB",
-    "dev": "Google LLC",
-    "link": "https://www.youtube.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Entretenimento"
-  },
-  {
     "id": 1774567453383,
     "name": "Prime Video",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Amazon_Prime_Video_logo.svg/512px-Amazon_Prime_Video_logo.svg.png",
