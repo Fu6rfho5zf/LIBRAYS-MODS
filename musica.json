@@ -43,20 +43,5 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "Música"
-  },
-  {
-    "id": 1774567453393,
-    "name": "SoundCloud",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/SoundCloud_logo.svg/512px-SoundCloud_logo.svg.png",
-    "desc": "Descubra músicas independentes, podcasts e artistas emergentes. Plataforma de streaming de áudio.",
-    "version": "2024.11.0",
-    "size": "32 MB",
-    "dev": "SoundCloud",
-    "link": "https://soundcloud.com/download",
-    "linkArm64": "",
-    "linkArm32": "",
-    "hasArm64": false,
-    "hasArm32": false,
-    "category": "Música"
   }
 ]
