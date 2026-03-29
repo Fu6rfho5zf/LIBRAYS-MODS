@@ -148,5 +148,20 @@
     "hasArm64": false,
     "hasArm32": false,
     "category": "jogo"
+  },
+  {
+    "id": 1774787240376,
+    "name": "Spider Fighter 2",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/6f/3a/04/6f3a0423-c14e-628c-3880-e7d4665aa555/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg",
+    "desc": "A new sequel of the most addictive super fighting action game ever made!\n\nBecome a hero, fight city gangsters and supervillains!\n\nFeatures:\n- reinvented fighting engine\n- 3rd-person camera view\n- open",
+    "version": "2.29.0",
+    "size": "242.8 MB",
+    "dev": "Starplay Games",
+    "link": "",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
