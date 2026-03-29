@@ -46,5 +46,20 @@
     "hasArm32": true,
     "price": "Grátis",
     "rating": "4.8"
+  },
+  {
+    "id": 1774772776902,
+    "name": "Talking Tom Gold Run",
+    "logo": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/3a/10/93/3a1093f8-c821-2afc-8a3f-50a6ea6d27e9/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+    "desc": "Talking Tom Gold Run (MOD, Unlimited Money)",
+    "version": "26.1.10",
+    "size": "371.2 MB",
+    "dev": "Outfit7 Limited",
+    "link": "https://files.an1.net/talking-tom-gold-run-mod_26.1.10.15782-an1.com.apk",
+    "linkArm64": "",
+    "linkArm32": "",
+    "hasArm64": false,
+    "hasArm32": false,
+    "category": "jogo"
   }
 ]
